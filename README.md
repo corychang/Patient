@@ -1,3 +1,2 @@
 Patient
-HERRO
 =======
