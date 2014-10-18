@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Trigger {
-
+public abstract class Trigger {
+	
+	public abstract bool IsTriggered();
+	
 }
