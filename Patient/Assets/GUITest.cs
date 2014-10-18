@@ -8,8 +8,13 @@ public class GUITest : MonoBehaviour {
 	private float startingTime;
 	private float duration;
 	public float Duration{get{return duration;}}
-	private bool isDialogOn = false;
-	public bool IsDialogOn{get{return isDialogOn;}}
+	private bool isDialogueOn = false;
+	public bool IsDialogueOn{get{return isDialogueOn;}}
+
+	private int left = 10;
+	private int top = 140;
+	private int right = 480;
+	private int bottom = 200;
 
 	void updateText(string text, float dur){
 		duration = dur;
@@ -18,24 +23,24 @@ public class GUITest : MonoBehaviour {
 	}
 
 	//test case
-	void Start(){
-		updateText("sdfddsds", 3F);
-	}
+	//void Start(){
+	//	updateText("sdfddsds", 3F);
+	//}
 
 	void OnGUI() {
 		//GUIStyle style = new GUIStyle ();
 		//style.richText = true;
 		float currentTime = Time.time;
 		if (currentTime-startingTime <= duration) {
-						show = true;
-				} else {
-	     			show = false;
-		        }
+			show = true;
+		} else {
+	     	show = false;
+	    }
 
 		if (show) {
-			GUI.Label (new Rect (10, 140, 480, 200), dialogue);
-			isDialogOn =true;
-			}
+			GUI.Label (new Rect (left, top, right, bottom), dialogue);
+			isDialogueOn =true;
+		}
 	}
 	
 	
