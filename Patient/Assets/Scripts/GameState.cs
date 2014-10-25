@@ -17,7 +17,14 @@ public class GameState {
 		this.mainAction = mainAction;
 	}
 	
+	public void Start() {
+		mainAction.Start();
+	}
+	
+	// called every update
 	public string GetNextState() {
+		mainAction.Update();
+	
 		foreach (KeyValuePair<Trigger, string> entry in transitionTable) {
 			var trigger = entry.Key;
 			var targetState = entry.Value;
