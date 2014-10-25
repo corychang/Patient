@@ -1,22 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Action {
+public abstract class Action {
 
-	public Action() {
+	// Start the action.
+	public abstract void Start();
 	
-	}
+	// Stop the action in-progress.
+	// Should be idempotent (interrupting after already interrupted does nothing).
+	// After Interrupt is called, IsFinished should return true.
+	public abstract void Interrupt();
 	
-	public void Start() {
-		// Start the action.
-	}
+	// Is the action finished running?
+	public abstract bool IsFinished();
 	
-	public void Interrupt() {
-		// Stop the action in-progress.
-	}
-	
-	// TODO: maybe convert to abstract class?
-	public bool IsFinished() {
-		return false;
-	}
+	// Run this on every update to progress the action.
+	public abstract void Update();
 }
