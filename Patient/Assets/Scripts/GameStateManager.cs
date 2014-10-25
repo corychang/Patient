@@ -6,13 +6,31 @@ public class GameStateManager : MonoBehaviour {
 
 	private GameState currentGameState;
 	private IDictionary<string, GameState> gameStatesByName;
+	
+	// TODO: implement for each level
+	IList<GameState> GetGameStatesList() {
+		return new List<GameState> {
+			new GameState(
+				"start",
+				new Dictionary<Trigger, string>() {
+					{new KeyDownTrigger(KeyCode.N), "2"}
+				},
+				new DebugLogAction("ALL YOUR BASE IS HAS CAtS")
+			),
+			new GameState(
+				"2",
+				new Dictionary<Trigger, string>() {
+					{new KeyDownTrigger(KeyCode.N), "start"}
+				},
+				new DebugLogAction("LOLWUT")
+			)
+		};
+	}
 
 	// Use this for initialization
 	void Start () {
-		IList<GameState> gameStates = new List<GameState>();
-		// TODO: initialize IList<GameState> gameStates
-		
-		// TODO: set currentGameState
+		IList<GameState> gameStates = GetGameStatesList();
+		currentGameState = gameStates[0];
 		
 		gameStatesByName = new Dictionary<string, GameState>();
 		foreach (GameState gameState in gameStates) {
@@ -27,11 +45,15 @@ public class GameStateManager : MonoBehaviour {
 			}
 		}
 		
+		currentGameState.Start();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		currentGameState = gameStatesByName[currentGameState.GetNextState()];
-	
+		var next = currentGameState.GetNextState();
+		if (next != currentGameState.Name) {
+			currentGameState = gameStatesByName[next];
+			currentGameState.Start();
+		}
 	}
 }
