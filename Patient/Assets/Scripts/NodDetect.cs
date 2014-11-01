@@ -1,7 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class NodDetect1 : MonoBehaviour {
+public class NodDetect : MonoBehaviour {
+
+	public delegate void NodHandler();
+	public delegate void ShakeHandler();
+
+	public event NodHandler Nod;
+	public event ShakeHandler Shake;
 
 	double Y_BOUNDARY = .3333;
 	double X_BOUNDARY = 1.4/3.0;
@@ -18,6 +24,15 @@ public class NodDetect1 : MonoBehaviour {
 	Vector3 startAngle;
 	bool completedNod = false;
 
+	void OnNod() {
+		if (Nod != null)
+			Nod ();
+	}
+
+	void OnShake() {
+		if (Shake != null)
+			Shake();
+	}
 	
 	// Use this for initialization
 	void Start () {
@@ -161,10 +176,10 @@ public class NodDetect1 : MonoBehaviour {
 				if ((Mathf.Abs (yDiff1) < .5) && (xDiff1 < .3)) {
 
 					if (nod){
-						print ("NOD!");
+						OnNod();
 					}
 					else{
-						print ("SHAKE!");
+						OnShake();
 					}
 		
 					completedNod = true;
