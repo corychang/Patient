@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+<<<<<<< HEAD
 public delegate void OnFinished();
 
 public abstract class Action {
@@ -39,4 +40,5 @@ public abstract class Action {
 	public bool IsFinished(){
 		return finished;
 	}
+
 }

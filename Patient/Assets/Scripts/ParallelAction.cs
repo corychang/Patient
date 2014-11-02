@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+<<<<<<< HEAD
 public class ParallelAction : Action  {
 
 	IList<Action> actions;
@@ -19,8 +20,22 @@ public class ParallelAction : Action  {
 		}
 	}
 
-	public override void Interrupt (){
-		foreach (Action action in actions){
+	public override bool IsFinished() {
+		foreach (Action action in actions) {
+			if (!action.IsFinished())
+				return false;
+		}
+		return true;
+	}
+	
+	public override void Update() {
+		foreach (Action action in actions) {
+			action.Update();
+		}
+	}
+	
+	public override void Interrupt() {
+		foreach (Action action in actions) {
 			action.Interrupt();
 		}
 	}
@@ -37,3 +52,10 @@ public class ParallelAction : Action  {
 
 
 }
+
+
+
+
+
+
+
