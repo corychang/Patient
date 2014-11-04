@@ -6,12 +6,24 @@ var newSkin : GUISkin;
 
 function pauseMenu()
 {
-	GUI.BeginGroup(Rect(Screen.width/2 - 150, 50,300,250));
+	var groupY = 50;
+	var groupWidth = 300;
+	var groupHeight = 250;
+	GUI.BeginGroup(Rect(Screen.width/2 - 150, groupY,groupWidth,groupHeight));
 	
+	var butx = 55;
+	var buty = 100;
+	var butWidth = 180;
+	var butHeight = 40;
+	
+	var boxX = 0;
+	var boxY = 0;
+	var boxWidth = 300;
+	var boxHeight = 250;
 	//menu box
-	GUI.Box(Rect(0,0,300,250),"Patient");
+	GUI.Box(Rect(boxX, boxY, boxWidth, boxHeight),"Patient");
 	
-	if (GUI.Button(Rect(55,100,180,40),"Resume"))
+	if (GUI.Button(Rect(butx,buty,butWidth,butHeight),"Resume"))
 	{
 		Time.timeScale = 1.0; //Unpause game
 		
@@ -21,12 +33,12 @@ function pauseMenu()
 		
 	}
 	
-	if (GUI.Button(Rect(55,150,180,40), "Main Menu"))
+	if (GUI.Button(Rect(butx,buty+50,butWidth,butHeight), "Main Menu"))
 	{
 		Application.LoadLevel(0);
 	}
 	
-	if (GUI.Button(Rect(55,200,180,40),"Quit"))
+	if (GUI.Button(Rect(butx,buty+100,butWidth,butHeight),"Quit"))
 	{
 	 	Application.Quit();
 	}
