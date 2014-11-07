@@ -27,12 +27,6 @@ public class ParallelAction : Action  {
 		return true;
 	}
 	
-	public override void Update() {
-		foreach (Action action in actions) {
-			action.Update();
-		}
-	}
-	
 	public override void Interrupt() {
 		foreach (Action action in actions) {
 			action.Interrupt();

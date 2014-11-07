@@ -49,7 +49,7 @@ public class SequentialAction : Action {
 	}
 
 
-	public override bool isFinished(){
+	public override bool IsFinished(){
 				return next == null;
 		}
 }

@@ -23,7 +23,4 @@ public class DebugLogAction : Action {
 	public override bool IsFinished() {
 		return true;
 	}
-	
-	// There's nothing to do once we start.
-	public override void Update() {}
 }

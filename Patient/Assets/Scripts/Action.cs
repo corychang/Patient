@@ -36,7 +36,7 @@ public abstract class Action {
 		// Stop the action in-progress.
 	
 	// TODO: maybe convert to abstract class?
-	public bool IsFinished(){
+	public virtual bool IsFinished(){
 		return finished;
 	}
 

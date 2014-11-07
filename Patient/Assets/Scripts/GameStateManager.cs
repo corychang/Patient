@@ -8,7 +8,7 @@ public class GameStateManager : MonoBehaviour {
 	private IDictionary<string, GameState> gameStatesByName;
 	
 	// TODO: implement for each level
-	IList<GameState> GetGameStatesList() {
+	protected virtual IList<GameState> GetGameStatesList() {
 		return new List<GameState> {
 			new GameState(
 				"start",
