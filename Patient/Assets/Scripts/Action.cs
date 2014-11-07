@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-<<<<<<< HEAD
 public delegate void OnFinished();
 
 public abstract class Action {
