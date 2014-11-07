@@ -1,40 +1,55 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class SequentialAction : Action {
 
-	private IList<Action> actions;
-	private int currentActionIndex;
-	
-	// Run each action, waiting for each to be finished before the next one
-
-	public SequentialAction(IList<Action> actions) {
-		this.actions = actions;
-	}
-	
-	public override void Start() {
-		currentActionIndex = 0;
-	}
-	
-	public override bool IsFinished() {
-		return currentActionIndex >= actions.Count;
-	}
-	
-	public override void Update() {
-		if (IsFinished())
-			return;
+	IEnumerator<Action> actions;
+	Action next;
+	Action current;
 		
-		var currentAction = actions[currentActionIndex];
-		currentAction.Update();
-		if (currentAction.IsFinished())
-			currentActionIndex += 1;
+	// Run each action, waiting for each to be finished before the next one
+	public SequentialAction(IList<Action> actions) {
+		this.actions = actions.GetEnumerator();
+		this.actions.MoveNext ();
+	}
+
+		
+	public override void Start() {
+		current = actions.Current;
+		current.register (currentDone);
+		current.Start ();
+		bool hasNext = actions.MoveNext ();
+		if(hasNext){
+			next = actions.Current;
+		}
 	}
 	
-	public override void Interrupt() {
-		if (IsFinished())
-			return;
+	//Called when curreng subAction finishes
+	//Either start next action, or if no more actions left, call done
+	protected void currentDone(){
+		if(next != null) {
+			next.register (currentDone);
+			next.Start ();
 			
-		actions[currentActionIndex].Interrupt();
+			current = next;
+			bool hasNext = actions.MoveNext ();
+			if (hasNext) {
+				next = actions.Current;
+			} 
+			else next = null;
+		}
+		else{
+			done();
+		}
 	}
+	
+	public override void Interrupt(){
+				current.Interrupt ();
+	}
+
+
+	public override bool isFinished(){
+				return next == null;
+		}
 }

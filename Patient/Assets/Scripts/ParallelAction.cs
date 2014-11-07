@@ -2,21 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 
-// Run all given actions simultaneously, waiting for all of them to finish.
-public class ParallelAction : Action {
-	
-	private IList<Action> actions;
-	
+<<<<<<< HEAD
+public class ParallelAction : Action  {
+
+	IList<Action> actions;
+	int numDone;
+
+	// Start all actions, without waiting for action.IsFinished()
 	public ParallelAction(IList<Action> actions) {
 		this.actions = actions;
 	}
-	
-	public override void Start() {
+
+	public override void Start (){
 		foreach (Action action in actions) {
+			action.register(subActionFin);
 			action.Start();
 		}
 	}
-	
+
 	public override bool IsFinished() {
 		foreach (Action action in actions) {
 			if (!action.IsFinished())
@@ -36,4 +39,23 @@ public class ParallelAction : Action {
 			action.Interrupt();
 		}
 	}
+
+	//increment everytime subAction finishes
+	//if all subactions have finished, call done on overall action
+	protected void subActionFin(){
+		numDone ++;
+		if(numDone == actions.Count){
+			done();
+		}
+	}
+
+
+
 }
+
+
+
+
+
+
+

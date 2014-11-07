@@ -1,19 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+<<<<<<< HEAD
+public delegate void OnFinished();
+
 public abstract class Action {
 
-	// Start the action.
-	public abstract void Start();
+	protected OnFinished onFinished;
+	bool finished;
+
+	public Action() {
+		finished = false;
+	}
+
+	//register functions to be called when action finishes
+	public void register(OnFinished func){
+		if (onFinished == null) {
+			onFinished = func;
+		} else {
+			onFinished += func;
+		}
+	}
+
+	//to be called when action finishes
+	protected void done(){
+		if (onFinished != null) {
+			onFinished ();
+		}
+		finished = true;
+	}
+
+	public abstract void Start ();
+		// Start the action.
 	
-	// Stop the action in-progress.
-	// Should be idempotent (interrupting after already interrupted does nothing).
-	// After Interrupt is called, IsFinished should return true.
-	public abstract void Interrupt();
+	public abstract void Interrupt ();
+		// Stop the action in-progress.
 	
-	// Is the action finished running?
-	public abstract bool IsFinished();
-	
-	// Run this on every update to progress the action.
-	public abstract void Update();
+	// TODO: maybe convert to abstract class?
+	public bool IsFinished(){
+		return finished;
+	}
+
 }
