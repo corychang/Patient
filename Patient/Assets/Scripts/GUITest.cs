@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GUITest : MonoBehaviour {
+public class GUITest : MonoBehaviour{
 	
 	private bool show = false;
 	private string dialogue;
-	private float startingTime;
+	public float startingTime;
 	private float duration;
 	public float Duration{get{return duration;}}
 	private bool isDialogueOn = false;
@@ -16,17 +16,17 @@ public class GUITest : MonoBehaviour {
 	private int right = 480;
 	private int bottom = 200;
 
-	void updateText(string text, float dur){
+	public void updateText(string text, float dur) {
 		duration = dur;
 		startingTime = Time.time;
 		dialogue = text;
 	}
 
 	//test case
-	//void Start(){
-	//	updateText("sdfddsds", 3F);
-	//}
-
+	/*void Start(){
+		updateText("sdfddsds", 3F);
+	}
+*/
 	void OnGUI() {
 		//GUIStyle style = new GUIStyle ();
 		//style.richText = true;
