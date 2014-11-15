@@ -18,8 +18,7 @@ public class CameraInvertAction : Action {
 	
 	// Message prints immediately, so there's nothing to interrupt
 	public override void Interrupt() {
-		invert.Inverted = false;
-		invert.restore = true;
+		invert.Restore ();
 		finished = true;
 	}
 	
