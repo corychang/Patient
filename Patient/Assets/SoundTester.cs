@@ -27,16 +27,16 @@ public class SoundTester : MonoBehaviour {
 	void Update () {
 		if (!started) {
 			Debug.Log ("creating new sound action");
-			Action soundAction = new SoundAction ("chatter", false);
-			Action soundAction2 = new SoundAction("happy", false);
-			IList<Action> list = new List<Action> ();
+			ActionRunner soundAction = new SoundAction ("chatter", false);
+			ActionRunner soundAction2 = new SoundAction("happy", false);
+			IList<ActionRunner> list = new List<ActionRunner> ();
 			list.Add (soundAction);
 			list.Add (soundAction2);
-			Action parAction = new ParallelAction(list);
-			list = new List<Action> ();
+			ActionRunner parAction = new ParallelAction(list);
+			list = new List<ActionRunner> ();
 			list.Add (parAction);
 			list.Add (parAction);
-			Action seqAction = new SequentialAction(list);
+			ActionRunner seqAction = new SequentialAction(list);
 			seqAction.Start ();
 			started = true;
 		}
