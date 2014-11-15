@@ -13,22 +13,22 @@ public class SampleSceneState : GameStateManager {
 		GUITest dialog = Camera.mainCamera.GetComponent<GUITest>();
 
 		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
-		GameObject obj = GameObject.Find ("Main Camera");
+		GameObject obj = GameObject.FindGameObjectWithTag ("MainCamera");
 		if (obj == null) {
-			Debug.Log ("couldn't find Main Camera");
+			Debug.LogError ("couldn't find Main Camera");
 		}
 		soundManager.addSound (new Sound (obj, "Assets/backgroundMusic.mp3", "background"));
 		soundManager.addSound (new Sound (obj, "Assets/crowd-talking-1.mp3", "chatter"));
 
 
 		//Creates the Parallel Action list for the Yes State transition
-		IList<Action> yesStateActionList = new List<Action> ();
+		IList<ActionRunner> yesStateActionList = new List<ActionRunner> ();
 		yesStateActionList.Add (new DialogAction ("Currently at the yes state", 3F, dialog));
 		yesStateActionList.Add (new SoundAction ("background", false));
 		ParallelAction yesActions = new ParallelAction (yesStateActionList);
 
 		//Creates the Parallel Action list for the No State transition
-		IList<Action> noStateActionList = new List<Action> ();
+		IList<ActionRunner> noStateActionList = new List<ActionRunner> ();
 		noStateActionList.Add (new DialogAction ("Currently at the no state", 3F, dialog));
 		noStateActionList.Add (new SoundAction ("chatter", false));
 		noStateActionList.Add (new CameraInvertAction ());
