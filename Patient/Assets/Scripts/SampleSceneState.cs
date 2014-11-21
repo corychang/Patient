@@ -17,8 +17,8 @@ public class SampleSceneState : GameStateManager {
 		if (obj == null) {
 			Debug.Log ("couldn't find Main Camera");
 		}
-		soundManager.addSound (new Sound (obj, "Assets/backgroundMusic.mp3", "background"));
-		soundManager.addSound (new Sound (obj, "Assets/crowd-talking-1.mp3", "chatter"));
+		soundManager.addSound (new Sound (obj, "Assets/Sounds/backgroundMusic.mp3", "background"));
+		soundManager.addSound (new Sound (obj, "Assets/Sounds/crowd-talking-1.mp3", "chatter"));
 
 
 		//Creates the Parallel Action list for the Yes State transition

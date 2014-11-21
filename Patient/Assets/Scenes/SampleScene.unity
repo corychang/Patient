@@ -1051,7 +1051,6 @@ GameObject:
   - 114: {fileID: 877059356}
   - 114: {fileID: 877059355}
   - 114: {fileID: 877059360}
-  - 114: {fileID: 877059357}
   m_Layer: 0
   m_Name: patient
   m_TagString: Untagged
@@ -1127,26 +1126,6 @@ MonoBehaviour:
     slidingSpeed: 10
     sidewaysControl: 1
     speedControl: .400000006
---- !u!114 &877059357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 877059354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e3c38299f6c9440d91f93bd146ed23a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 0
-  sensitivityX: 15
-  sensitivityY: 15
-  minimumX: -90
-  maximumX: 90
-  minimumY: -30
-  maximumY: 40
-  rotationX: 0
-  rotationY: 0
 --- !u!143 &877059358
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1319,7 +1298,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961970888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd0a00b8f384642a3a012438c62bc7bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fc565922da4c4349be97d8053671a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &961970890
@@ -1947,16 +1926,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420428700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ec2fe99d1108b9d0006a298d76c639, type: 3}
+  m_Script: {fileID: 11500000, guid: ccccfac9d46cb4d34a0d49a47ecc48c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axes: 2
+  axes: 0
   sensitivityX: 10
   sensitivityY: 10
-  minimumX: 0
-  maximumX: 360
+  minimumX: -90
+  maximumX: 90
   minimumY: -60
   maximumY: 60
+  rotationX: 0
+  rotationY: 0
 --- !u!124 &1420428704
 Behaviour:
   m_ObjectHideFlags: 0
@@ -2014,7 +1995,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420428700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db3ee39701e464581a893dae076c38f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b484be3c3f0d458cbe5b1ce62353db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingTime: 0
@@ -2026,7 +2007,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420428700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3b6b21f7eee4979baea5992e6ae382, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a6c8fe12013645cd80e35766225352e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1466176258
