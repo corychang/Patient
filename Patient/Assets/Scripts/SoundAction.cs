@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SoundAction : Action
+public class SoundAction : ActionRunner
 {
 	string soundName;
 	SoundManager soundManager;

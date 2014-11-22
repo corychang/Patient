@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraInvertAction : Action {
+public class CameraInvertAction : ActionRunner {
 
 	private bool finished;
 	private CameraInvert invert;

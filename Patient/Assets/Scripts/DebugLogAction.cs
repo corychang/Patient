@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DebugLogAction : Action {
+public class DebugLogAction : ActionRunner {
 
 	private string message;
 	
