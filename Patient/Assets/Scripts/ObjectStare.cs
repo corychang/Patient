@@ -3,7 +3,6 @@ using System.Collections;
 
 public class ObjectStare : MonoBehaviour {
 	public int angle = 10;
-
 	// Use this for initialization
 	void Start () {
 		// does nothing to initialize

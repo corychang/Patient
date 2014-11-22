@@ -7,9 +7,9 @@ public class GameState {
 	public readonly string Name;
 	
 	private IDictionary<Trigger,string> transitionTable;
-	private Action mainAction;
+	private ActionRunner mainAction;
 
-	public GameState(string name, IDictionary<Trigger,string> transitionTable, Action mainAction) {
+	public GameState(string name, IDictionary<Trigger,string> transitionTable, ActionRunner mainAction) {
 		// TODO: add ongoing action support
 		
 		this.Name = name;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DialogAction : Action {
+public class DialogAction : ActionRunner {
 	
 	private string message;
 	private float duration;

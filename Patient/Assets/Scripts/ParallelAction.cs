@@ -2,25 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ParallelAction : Action  {
+public class ParallelAction : ActionRunner  {
 
-	IList<Action> actions;
+	IList<ActionRunner> actions;
 	int numDone;
 
 	// Start all actions, without waiting for action.IsFinished()
-	public ParallelAction(IList<Action> actions) {
+	public ParallelAction(IList<ActionRunner> actions) {
 		this.actions = actions;
 	}
 
 	public override void Start (){
-		foreach (Action action in actions) {
+		foreach (ActionRunner action in actions) {
 			action.register(subActionFin);
 			action.Start();
 		}
 	}
 
 	public override bool IsFinished() {
-		foreach (Action action in actions) {
+		foreach (ActionRunner action in actions) {
 			if (!action.IsFinished())
 				return false;
 		}
@@ -28,7 +28,7 @@ public class ParallelAction : Action  {
 	}
 	
 	public override void Interrupt() {
-		foreach (Action action in actions) {
+		foreach (ActionRunner action in actions) {
 			action.Interrupt();
 		}
 	}

@@ -36,6 +36,7 @@ public class NodDetect : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		Debug.Log (Camera.main.name);
 		initialAngle = Camera.main.transform.forward;
 		checkHeadNod = false;
 		checkHeadShake = false;
@@ -77,10 +78,14 @@ public class NodDetect : MonoBehaviour {
 		//Check if the head moved to a different square
 		float startY = Mathf.Abs (startAngle.y - initialAngle.y);
 		float startX = Mathf.Abs (startAngle.x - initialAngle.x);
+
+		Debug.Log ((startX >= X_BOUNDARY) + " " + (startY >= Y_BOUNDARY));
 		
 		//Passed a block on the y and not on x side: head nod
 		if(startY >= Y_BOUNDARY) {
 			if(!(startX >= X_BOUNDARY)) {
+				Debug.Log ("Start head nod");
+
 				checkHeadNod = true;
 				checkHeadShake = false;
 				checkAngle = startAngle;
@@ -107,18 +112,10 @@ public class NodDetect : MonoBehaviour {
 		}
 		
 		//Passed a block on the y and on x side: diagonal
-		if(startY >= Y_BOUNDARY) {
-			if((startX >= X_BOUNDARY)) {
-				checkHeadNod = false;
-				checkHeadShake = false;
-			}
-		}
-		
-		if(startX >= X_BOUNDARY) {
-			if((startY >= Y_BOUNDARY)) {
-				checkHeadNod = false;
-				checkHeadShake = false;
-			}
+		if(startY >= Y_BOUNDARY && startX >= X_BOUNDARY) {
+			Debug.Log ("diagonal");
+			checkHeadNod = false;
+			checkHeadShake = false;
 		}
 		
 		initialAngle = Camera.main.transform.forward;
@@ -144,7 +141,7 @@ public class NodDetect : MonoBehaviour {
 			//random numbers for how far it can be.. fiddle around wth this for camera constraints
 			if (nod) {
 
-				if (yDiff > .3 && xDiff < .2) {
+				if (yDiff > .1 && xDiff < .1) {
 					up = true;
 					//print ("it's true!");
 				} 
@@ -153,7 +150,7 @@ public class NodDetect : MonoBehaviour {
 
 			//shake
 			if (!nod) {
-				if (xDiff < .3 && xDiff > .2) {
+				if (xDiff < .1 && yDiff > .1) {
 					up = true;
 				}
 			}
@@ -173,7 +170,7 @@ public class NodDetect : MonoBehaviour {
 
 
 				//fiddle with these numbers
-				if ((Mathf.Abs (yDiff1) < .5) && (xDiff1 < .3)) {
+				if ((Mathf.Abs (yDiff1) < .2) && (xDiff1 < .2)) {
 
 					if (nod){
 						OnNod();

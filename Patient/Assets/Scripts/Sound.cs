@@ -20,7 +20,7 @@ public class Sound
 
 		source = gameObject.AddComponent<AudioSource>();
 		AudioClip clip = Resources.LoadAssetAtPath<AudioClip> (filePath);
-		if (clip == null) Debug.Log ("can't find audio file");
+		if (clip == null) Debug.Log ("can't find audio file" + filePath);
 		source.clip = clip;
 	}
 
