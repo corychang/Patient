@@ -9,12 +9,16 @@ public class GameState {
 	private IDictionary<Trigger,string> transitionTable;
 	private ActionRunner mainAction;
 
-	public GameState(string name, IDictionary<Trigger,string> transitionTable, ActionRunner mainAction) {
+	public GameState(string name, IDictionary<Trigger,string> transitionTable, ActionRunner mainAction, 
+	                 ActionRunner actionToInterrupt = null) {
 		// TODO: add ongoing action support
 		
 		this.Name = name;
 		this.transitionTable = transitionTable;
 		this.mainAction = mainAction;
+		if (actionToInterrupt != null) {
+			actionToInterrupt.Interrupt();
+		}
 	}
 	
 	public void Start() {
