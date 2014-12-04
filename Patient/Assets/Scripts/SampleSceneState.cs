@@ -19,6 +19,7 @@ public class SampleSceneState : GameStateManager {
 		}
 		soundManager.addSound (new Sound (obj, "Assets/Sounds/backgroundMusic.mp3", "background"));
 		soundManager.addSound (new Sound (obj, "Assets/Sounds/crowd-talking-1.mp3", "chatter"));
+		soundManager.addSound (new Sound (obj, "Assets/Sounds/sadMusic.mp3", "sadMusic"));
 
 
 		//Creates the Parallel Action list for the Yes State transition
@@ -34,6 +35,12 @@ public class SampleSceneState : GameStateManager {
 		noStateActionList.Add (new CameraInvertAction ());
 		ParallelAction noActions = new ParallelAction (noStateActionList);
 
+		//Creates the Parallel Action list for the Stare State transition
+		IList<ActionRunner> stareStateActionList = new List<ActionRunner> ();
+		stareStateActionList.Add (new DialogAction ("Currently at the Stare State", 3F, dialog));
+		stareStateActionList.Add (new SoundAction ("sadMusic", false));
+		ParallelAction stareActions = new ParallelAction (stareStateActionList);
+
 		if (dialog == null) {
 			Debug.Log("null pointer with dialog");			
 		}
@@ -43,8 +50,8 @@ public class SampleSceneState : GameStateManager {
 				"start",
 				new Dictionary<Trigger, string>() {
 				{new NodTrigger(GameObject.Find("patient")), "yes"}, 
-				{new ShakeTrigger(GameObject.Find("patient")), "no"}
-
+				{new ShakeTrigger(GameObject.Find("patient")), "no"}, 
+				{new StareTrigger(GameObject.Find("patient"), "StareTarget"), "stare"}
 				},
 				new DialogAction("Currently at the start state", 3F, dialog)
 			),
@@ -57,6 +64,11 @@ public class SampleSceneState : GameStateManager {
 				"yes",
 				new Dictionary<Trigger, string>(),
 				yesActions
+			),
+			new GameState(
+				"stare",
+				new Dictionary<Trigger, string>(),
+				stareActions
 			)
 		};
 	}
