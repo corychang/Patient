@@ -1051,6 +1051,7 @@ GameObject:
   - 114: {fileID: 877059356}
   - 114: {fileID: 877059355}
   - 114: {fileID: 877059360}
+  - 114: {fileID: 877059357}
   m_Layer: 0
   m_Name: patient
   m_TagString: Untagged
@@ -1126,6 +1127,18 @@ MonoBehaviour:
     slidingSpeed: 10
     sidewaysControl: 1
     speedControl: .400000006
+--- !u!114 &877059357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 877059354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01013bf7687744a9daf97955c3e38439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 10
 --- !u!143 &877059358
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1153,7 +1166,7 @@ Transform:
   m_Children:
   - {fileID: 1420428701}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!114 &877059360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1312,7 +1325,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &976490794
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,7 +1364,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &1019725441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,7 +1700,7 @@ Transform:
   - {fileID: 197667871}
   - {fileID: 576522559}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!95 &1217118329
 Animator:
   serializedVersion: 3
@@ -2302,7 +2315,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &1754591241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2357,6 +2370,77 @@ Transform:
   m_Children: []
   m_Father: {fileID: 55261294}
   m_RootOrder: 0
+--- !u!1 &1840367367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100014, guid: c4d3a634605bf477e9edc42f5a4a46f6, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1840367371}
+  - 33: {fileID: 1840367370}
+  - 23: {fileID: 1840367369}
+  - 65: {fileID: 1840367368}
+  m_Layer: 0
+  m_Name: StareTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1840367368
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1840367367}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .0334694199, y: .0697131455, z: .076961495}
+  m_Center: {x: 0, y: .0180986542, z: -6.66133815e-16}
+--- !u!23 &1840367369
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2300010, guid: c4d3a634605bf477e9edc42f5a4a46f6,
+    type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1840367367}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: f653d41f41c7a044684b374155b34380, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &1840367370
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3300010, guid: c4d3a634605bf477e9edc42f5a4a46f6,
+    type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1840367367}
+  m_Mesh: {fileID: 4300016, guid: c4d3a634605bf477e9edc42f5a4a46f6, type: 3}
+--- !u!4 &1840367371
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400014, guid: c4d3a634605bf477e9edc42f5a4a46f6, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1840367367}
+  m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106709}
+  m_LocalPosition: {x: 1.86577511, y: .816205025, z: -11.5509853}
+  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
 --- !u!1 &1859089097
 GameObject:
   m_ObjectHideFlags: 0
