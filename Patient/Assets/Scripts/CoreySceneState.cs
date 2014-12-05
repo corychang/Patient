@@ -39,7 +39,7 @@ public class CoreySceneState : GameStateManager {
 		GameState scene3Rose = new GameState (
 			"scene3Rose",
 			new Dictionary<Trigger, string>(),
-			new DialogAction("rose", 2, dialog),
+			new DialogAction("rose", 2),
 			scene3HallucinateAction
 			);
 	

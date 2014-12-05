@@ -27,7 +27,7 @@ public class PatientSceneStates : GameStateManager {
 		
 		//Creates the Parallel Action list for the Shake State transition
 		IList<ActionRunner> yesStateActionList = new List<ActionRunner> ();
-		yesStateActionList.Add (new DialogAction ("Waking up", 3F, dialog));
+		yesStateActionList.Add (new DialogAction ("Waking up", 3F));
 		ParallelAction shakeActions = new ParallelAction (yesStateActionList);
 		
 		if (dialog == null) {

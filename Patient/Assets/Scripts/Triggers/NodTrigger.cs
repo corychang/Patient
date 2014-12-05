@@ -4,6 +4,9 @@ using System.Collections;
 public class NodTrigger : Trigger
 {
 	private bool JustGotNod = false;
+	
+	public NodTrigger() : this(GameObject.Find("patient")) {
+	}
 
 	public NodTrigger(GameObject gameObject) {
 		NodDetect nodDetect = gameObject.GetComponent<NodDetect> ();

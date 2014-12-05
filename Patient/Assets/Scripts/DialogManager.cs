@@ -16,6 +16,12 @@ public class DialogManager : MonoBehaviour{
 	private int top = 140;
 	private int right = 480;
 	private int bottom = 200;
+	
+	public static DialogManager Instance;
+	
+	void Start() {
+		Instance = this;
+	}
 
 	public void updateText(string text, float dur, OnFinished onFinished = null) {
 		duration = dur;
