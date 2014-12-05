@@ -288,7 +288,7 @@ public class PatientGameStateManager : GameStateManager {
 				new SequentialAction(
 					// TODO: knock sound
 					new DialogAction("Sibling: Yes?"),
-					new SetAnimVarAction("DoorHinge", "Open", true),
+					//new SetAnimVarAction("DoorHinge", "Open", true),
 					new DialogAction("Doctor: Visiting hours are almost over. There are some forms you need to sign."),
 					new DialogAction("Sibling: Sure?"),
 					new DialogAction("Sibling: I’ll be going now, but think about this."),
@@ -305,12 +305,12 @@ public class PatientGameStateManager : GameStateManager {
 	}
 
 	protected override IList<GameState> GetGameStatesList() {
-		//return GetScene4List ();
-		return
+		return GetScene4List ();
+		/*return
 		GetScene1List()
 			.Concat(GetScene2List())
 			.Concat(GetScene3List())
 			.Concat(GetScene4List())
-			.ToList ();
+			.ToList ();*/
 	}
 }
