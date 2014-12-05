@@ -12,7 +12,7 @@ public class DialogAction : ActionRunner {
 	
 	public DialogAction(string message) {
 		int numWords = message.Split(' ').Length;
-		float timeToRead = numWords * WordsPerSecond + ReadingExtraTime;
+		float timeToRead = numWords / WordsPerSecond + ReadingExtraTime;
 		this.message = message;
 		this.duration = timeToRead;
 	}

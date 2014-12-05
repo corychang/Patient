@@ -13,6 +13,7 @@ public class SetVariableAction : ActionRunner {
 
 	public override void Start () {
 		GameStateManager.Instance.SetVariable(name, value);
+		done ();
 	}
 	
 	// Nothing to interrupt	

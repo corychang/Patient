@@ -20,7 +20,8 @@ public class Scene4State : GameStateManager {
 					{new NodTrigger(), "scene4yes"},
 					{new ShakeTrigger(), "scene4no"}
 				},
-				new NoAction()
+				new DebugLogAction("scene4question")
+//				new NoAction()
 			),
 			new GameState(
 				"scene4yes",

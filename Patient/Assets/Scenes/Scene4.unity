@@ -1311,7 +1311,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 961970888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fc565922da4c4349be97d8053671a18, type: 3}
+  m_Script: {fileID: 11500000, guid: ac70f7e92cb16432695b7fb957c5dc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &961970890
@@ -1759,7 +1759,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: f13b965396eb64b8fb436c103ad076f2, type: 2}
+  - {fileID: 2100000, guid: fd333f57035c649ffafc09e52f9413fc, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -2008,7 +2008,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420428700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b484be3c3f0d458cbe5b1ce62353db1, type: 3}
+  m_Script: {fileID: 11500000, guid: e31879f5bc1bf43708805b0c081eb5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingTime: 0

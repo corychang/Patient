@@ -119,22 +119,19 @@ public class NodDetect : MonoBehaviour {
 		Vector3 absDiff = new Vector3(Mathf.Abs(diff.x),Mathf.Abs(diff.y),Mathf.Abs(diff.z));		
 		
 		if (!nod) {
-//			Debug.Log (Mathf.Sign(checkDirection.y) + " " + Mathf.Sign (diff.y) + (Mathf.Sign(checkDirection.y) != Mathf.Sign (diff.y)));
 			if (absDiff.y > 60 && Mathf.Sign(checkDirection.y) != Mathf.Sign (diff.y)) {
 				currentState = State.WaitForMovement;
+				Debug.Log ("shake");
 				OnShake();
 				previousAngle = GetCurrentRotation();
 			}
-				
-//				OnNod();
 		} else {
 			if (absDiff.x > 30 && Mathf.Sign(checkDirection.x) != Mathf.Sign (diff.x)) {
 				currentState = State.WaitForMovement;
 				previousAngle = GetCurrentRotation();
+				Debug.Log ("nod");
 				OnNod();
 			}
-				
-//				OnShake();
 		}
 		
 		
