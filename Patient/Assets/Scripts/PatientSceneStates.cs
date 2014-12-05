@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ public class PatientSceneStates : GameStateManager {
 	protected override IList<GameState> GetGameStatesList() {
 		
 		//Gets the Dialog object from the camera for the dialog action
-		GUITest dialog = Camera.mainCamera.GetComponent<GUITest>();
+		DialogManager dialog = Camera.main.GetComponent<DialogManager>();
 		
 		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
 		GameObject obj = GameObject.Find ("Main Camera");
@@ -27,7 +27,7 @@ public class PatientSceneStates : GameStateManager {
 		
 		//Creates the Parallel Action list for the Shake State transition
 		IList<ActionRunner> yesStateActionList = new List<ActionRunner> ();
-		yesStateActionList.Add (new DialogAction ("Waking up", 3F, dialog));
+		yesStateActionList.Add (new DialogAction ("Waking up", 3F));
 		ParallelAction shakeActions = new ParallelAction (yesStateActionList);
 		
 		if (dialog == null) {

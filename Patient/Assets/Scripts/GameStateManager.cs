@@ -6,6 +6,18 @@ public class GameStateManager : MonoBehaviour {
 
 	private GameState currentGameState;
 	private IDictionary<string, GameState> gameStatesByName;
+	private IDictionary<string, object> variables;
+	public static GameStateManager Instance ;
+	
+	public string CurrentGameStateName; // show in the inspector to help debug, read only
+	
+	public void SetVariable(string name, object value) {
+		variables[name] = value;
+	}
+	
+	public object GetVariable(string name) {
+		return variables[name];
+	}
 	
 	// TODO: implement for each level
 	protected virtual IList<GameState> GetGameStatesList() {
@@ -29,6 +41,8 @@ public class GameStateManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Instance = this;
+		variables = new Dictionary<string, object>();
 		IList<GameState> gameStates = GetGameStatesList();
 		currentGameState = gameStates[0];
 		
@@ -44,16 +58,31 @@ public class GameStateManager : MonoBehaviour {
 				Utilities.Assert(gameStatesByName.ContainsKey(successor), "State " + gameState.Name + "'s successor " + successor + " must exist");
 			}
 		}
-		
-		currentGameState.Start();
 	}
+	
+	bool started;
 	
 	// Update is called once per frame
 	void Update () {
+		if (!started) {
+			started = true;
+			currentGameState.Start();
+		}
+	
+		CurrentGameStateName = currentGameState.Name;
 		var next = currentGameState.GetNextState();
 		if (next != currentGameState.Name) {
 			currentGameState = gameStatesByName[next];
 			currentGameState.Start();
 		}
+	}
+	
+	public bool GetMainActionFinished() {
+		if (currentGameState == null) {
+			Debug.LogWarning("Trying to GetMainActionFinished(), but no current game state!");
+			return false;
+		}
+		
+		return currentGameState.MainAction.IsFinished();
 	}
 }

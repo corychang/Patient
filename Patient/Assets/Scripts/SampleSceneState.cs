@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ public class SampleSceneState : GameStateManager {
 	protected override IList<GameState> GetGameStatesList() {
 
 		//Gets the Dialog object from the camera for the dialog action
-		GUITest dialog = Camera.mainCamera.GetComponent<GUITest>();
+		DialogManager dialog = Camera.main.GetComponent<DialogManager>();
 
 		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
 		GameObject obj = GameObject.FindGameObjectWithTag ("MainCamera");
@@ -24,20 +24,20 @@ public class SampleSceneState : GameStateManager {
 
 		//Creates the Parallel Action list for the Yes State transition
 		IList<ActionRunner> yesStateActionList = new List<ActionRunner> ();
-		yesStateActionList.Add (new DialogAction ("Currently at the yes state", 3F, dialog));
+		yesStateActionList.Add (new DialogAction ("Currently at the yes state", 3F));
 		yesStateActionList.Add (new SoundAction ("background", false));
 		ParallelAction yesActions = new ParallelAction (yesStateActionList);
 
 		//Creates the Parallel Action list for the No State transition
 		IList<ActionRunner> noStateActionList = new List<ActionRunner> ();
-		noStateActionList.Add (new DialogAction ("Currently at the no state", 3F, dialog));
+		noStateActionList.Add (new DialogAction ("Currently at the no state", 3F));
 		noStateActionList.Add (new SoundAction ("chatter", false));
 		noStateActionList.Add (new CameraInvertAction ());
 		ParallelAction noActions = new ParallelAction (noStateActionList);
 
 		//Creates the Parallel Action list for the Stare State transition
 		IList<ActionRunner> stareStateActionList = new List<ActionRunner> ();
-		stareStateActionList.Add (new DialogAction ("Currently at the Stare State", 3F, dialog));
+		stareStateActionList.Add (new DialogAction ("Currently at the Stare State", 3F));
 		stareStateActionList.Add (new SoundAction ("sadMusic", false));
 		ParallelAction stareActions = new ParallelAction (stareStateActionList);
 
@@ -53,7 +53,7 @@ public class SampleSceneState : GameStateManager {
 				{new ShakeTrigger(GameObject.Find("patient")), "no"}, 
 				{new StareTrigger(GameObject.Find("patient"), "StareTarget"), "stare"}
 				},
-				new DialogAction("Currently at the start state", 3F, dialog)
+				new DialogAction("Currently at the start state", 3F)
 			),
 			new GameState(
 				"no",

@@ -30,35 +30,35 @@ public class PatientScene2	 : GameStateManager {
 		ParallelAction hallu = new ParallelAction (surrealEffects);
 
 		List<ActionRunner> list = new List<ActionRunner> ();
-		list.Add (new DialogAction ("How long have you been awake? Uh, actually, first, do you know where you are?", 4, dialog));
+		list.Add (new DialogAction ("How long have you been awake? Uh, actually, first, do you know where you are?"));
 		SequentialAction visitor = new SequentialAction (list); 
 
 		DialogAction no1 = new DialogAction ("Well, we’re in St. Paul’s Hospital. It works with Lydersen Labs to develop pharmaceuticals. " +
-			"Actually, I work here, but in the research side with people from Lydersen.", 3, dialog);
+			"Actually, I work here, but in the research side with people from Lydersen.");
 
-		DialogAction yes1 = new DialogAction ("Oh, okay, that’s good.", 2, dialog);
+		DialogAction yes1 = new DialogAction ("Oh, okay, that’s good.");
 
 		DialogAction no2 = new DialogAction ("That’s fine, I’m just glad you’re okay. You got " +
-		                                     "hit by a car. I don’t know exactly what happened, but you’ve been in a coma for a while.", 3, dialog);
+		                                     "hit by a car. I don’t know exactly what happened, but you’ve been in a coma for a while.");
 		
-		DialogAction yes2 = new DialogAction ("Yeah, that was a pretty bad crash. We were worried you wouldn’t make it.", 2, dialog);
+		DialogAction yes2 = new DialogAction ("Yeah, that was a pretty bad crash. We were worried you wouldn’t make it.");
 
 		DialogAction preDoctorQs = new DialogAction ("Okay, you should remember who you are, right? " +
-						"The doctor gave me these questions to ask you, just making sure you’re all here.", 4, dialog);
+						"The doctor gave me these questions to ask you, just making sure you’re all here.");
 
-		DialogAction no3 = new DialogAction ("Wait, really? But that — In that case, do you remember me? ", 2, dialog);
+		DialogAction no3 = new DialogAction ("Wait, really? But that — In that case, do you remember me? ");
 
-		DialogAction yes3 = new DialogAction ("See, I knew the doctor was worrying too much. In that case, you remember me, right?", 2, dialog);
+		DialogAction yes3 = new DialogAction ("See, I knew the doctor was worrying too much. In that case, you remember me, right?");
 
-		DialogAction no4 = new DialogAction ("I- um. I, well.", 2, dialog);
+		DialogAction no4 = new DialogAction ("I- um. I, well.");
 
-		DialogAction yes4 = new DialogAction ("But then, how do — no, nevermind.",2,  dialog);
+		DialogAction yes4 = new DialogAction ("But then, how do — no, nevermind.");
 
 		DialogAction WorldExpo = new DialogAction ("I’m your brother. Uh, I don’t know what to say… I work here and, \n" +
 						"um, I do research in epigenetics. \n" +
-						"This never happened before… I didn’t think that — the doctor did say you might…", 5, dialog);
+						"This never happened before… I didn’t think that — the doctor did say you might…");
 
-		DialogAction question2 = new DialogAction ("Do you remember anything about how you got here?", 2, dialog);
+		DialogAction question2 = new DialogAction ("Do you remember anything about how you got here?");
 
 
 		NodTrigger nodTrigger = new NodTrigger (obj);
@@ -78,7 +78,7 @@ public class PatientScene2	 : GameStateManager {
 			new GameState(
 				"Visitor",
 				new Dictionary<Trigger, string>() {
-					{new AllActionsFinishedTrigger(visitor), "QATime1"}
+					{new MainActionFinishedTrigger(), "QATime1"}
 				},
 				visitor, hallu
 			),
@@ -89,21 +89,21 @@ public class PatientScene2	 : GameStateManager {
 					{shakeTrigger, "no1"},
 					{nodTrigger, "yes1"}
 				},
-				new DialogAction("", 0, dialog)
+				new NoAction()
 			),
 
 
 			new GameState(
 				"no1",
 				new Dictionary<Trigger, string>() {
-					{new AllActionsFinishedTrigger(no1), "question2"}
+					{new MainActionFinishedTrigger(), "question2"}
 				},
 				no1
 			),
 			new GameState(
 				"yes1",
 				new Dictionary<Trigger, string>() {
-					{new AllActionsFinishedTrigger(yes1), "question2"}
+					{new MainActionFinishedTrigger(), "question2"}
 				},
 				yes1
 			),
@@ -111,7 +111,7 @@ public class PatientScene2	 : GameStateManager {
 			new GameState(
 				"question2",
 				new Dictionary<Trigger, string>() {
-				{new AllActionsFinishedTrigger(question2), "QATime2"}
+				{new MainActionFinishedTrigger(), "QATime2"}
 			},
 			question2
 			),
@@ -122,13 +122,13 @@ public class PatientScene2	 : GameStateManager {
 					{shakeTrigger, "no2"},
 					{nodTrigger, "yes2"}
 				},
-				new DialogAction("", 0, dialog)
+				new NoAction()
 			),
 
 			new GameState(
 				"no2",
 				new Dictionary<Trigger, string>() {
-				{new AllActionsFinishedTrigger(no2), "question3"}
+				{new MainActionFinishedTrigger(), "question3"}
 			},
 			no2
 			),
@@ -136,7 +136,7 @@ public class PatientScene2	 : GameStateManager {
 			new GameState(
 				"yes2",
 				new Dictionary<Trigger, string>() {
-				{new AllActionsFinishedTrigger(yes2), "question3"}
+				{new MainActionFinishedTrigger(), "question3"}
 			},
 			yes2
 			),
@@ -145,7 +145,7 @@ public class PatientScene2	 : GameStateManager {
 			new GameState(
 				"question3",
 				new Dictionary<Trigger, string>() {
-				{new AllActionsFinishedTrigger(preDoctorQs), "preQATime3"}
+				{new MainActionFinishedTrigger(), "preQATime3"}
 			},
 			preDoctorQs
 			),
@@ -156,13 +156,13 @@ public class PatientScene2	 : GameStateManager {
 				{shakeTrigger, "question4_no"},
 				{nodTrigger, "question4_yes"}
 			},
-				new DialogAction("", 0, dialog)
+				new NoAction()
 			),
 
 			new GameState(
 				"question4_no",
 				new Dictionary<Trigger, string>() {
-				{new AllActionsFinishedTrigger(no3), "no3"}
+				{new MainActionFinishedTrigger(), "no3"}
 			},
 			no3
 			),
@@ -173,14 +173,14 @@ public class PatientScene2	 : GameStateManager {
 				{shakeTrigger, "no4"},
 				{nodTrigger, "Scene3"}
 			},
-			new DialogAction("", 0, dialog)
+			new NoAction()
 			),
 
 
 			new GameState(
 				"question4_yes",
 				new Dictionary<Trigger, string>() {
-				{new AllActionsFinishedTrigger(no3), "yes3"}
+				{new MainActionFinishedTrigger(), "yes3"}
 			},
 			yes3
 			),
@@ -191,13 +191,13 @@ public class PatientScene2	 : GameStateManager {
 				{shakeTrigger, "no4"},
 				{nodTrigger, "yes4"}
 			},
-			new DialogAction("", 0, dialog)
+			new NoAction()
 			),
 
 			new GameState(
 				"no4",
 				new Dictionary<Trigger, string>() {
-				{new AllActionsFinishedTrigger(no4), "WorldExpo"},
+				{new MainActionFinishedTrigger(), "WorldExpo"},
 			},
 				no4
 			),
@@ -205,7 +205,7 @@ public class PatientScene2	 : GameStateManager {
 			new GameState(
 				"yes4",
 				new Dictionary<Trigger, string>() {
-				{new AllActionsFinishedTrigger(yes4), "WorldExpo"},
+				{new MainActionFinishedTrigger(), "WorldExpo"},
 			},
 			yes4
 			),
@@ -215,7 +215,7 @@ public class PatientScene2	 : GameStateManager {
 			new GameState(
 				"WorldExpo",
 				new Dictionary<Trigger, string>() {
-				{new AllActionsFinishedTrigger(WorldExpo), "Scene3"},
+				{new MainActionFinishedTrigger(), "Scene3"},
 			},
 			WorldExpo
 			),
@@ -224,7 +224,7 @@ public class PatientScene2	 : GameStateManager {
 				"Scene3",
 				new Dictionary<Trigger, string>() {
 			},
-			new DialogAction("", 0, dialog)
+			new NoAction()
 			)
 		};
 	}

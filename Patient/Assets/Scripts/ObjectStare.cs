@@ -52,8 +52,8 @@ public class ObjectStare : MonoBehaviour {
 		ArrayList objectsHit = new ArrayList ();
 		//new position and direction of camera
 		// TODO: Change from mainCamera to main
-		Vector3 pos = Camera.mainCamera.gameObject.transform.position;
-		Vector3 dir = Camera.mainCamera.gameObject.transform.forward;
+		Vector3 pos = Camera.main.gameObject.transform.position;
+		Vector3 dir = Camera.main.gameObject.transform.forward;
 		Ray camVector = new Ray(pos, dir);
 
 		//looking in a cone of 30 degrees from forward direction
