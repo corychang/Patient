@@ -9,13 +9,17 @@ public class NodDetect : MonoBehaviour {
 	public event NodHandler Nod;
 	public event ShakeHandler Shake;
 	
-	const double Y_BOUNDARY = .3333;
-	const double X_BOUNDARY = 1.4/3.0;
-	bool checkHeadNod;
-	bool checkHeadShake;
+	private enum State {WaitForMovement, CheckNod, CheckShake}
+	private State currentState;
 	
-	Vector3 initialAngle;
+	// angles per second threshold to trigger nod
+	const double Y_BOUNDARY = 500;
+	const double X_BOUNDARY = 500;
+	
+	Vector3 previousAngle;
 	Vector3 checkAngle;
+	Vector3 checkDirection;
+	float checkStartTime;
 	
 	void OnNod() {
 		if (Nod != null)
@@ -29,88 +33,136 @@ public class NodDetect : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		initialAngle = Camera.main.transform.forward;
-		checkHeadNod = false;
-		checkHeadShake = false;
+		previousAngle = GetCurrentRotation();
+		currentState = State.WaitForMovement;
 	}
 	
 	// every frame checks head nod / shake
 	void Update () {
+		if (Time.time < 0.5f)
+			return; // don't detect nod or shake at first since player moves camera into window then
+	
 		//checks if currently doing a head nod
-		if (checkHeadNod) {
+		if (currentState == State.CheckNod) {
 			checkMove (checkAngle,true);
-			checkHeadNod = false;
 		} 
 		//checks if currently doing head shake
-		else if (checkHeadShake) {
+		else if (currentState == State.CheckShake) {
 			checkMove (checkAngle,false);
-			checkHeadShake = false;
 		} 
 		//detect any new movements
 		else {
 			DetectMovement ();
 		}
 		
+		
+		if ((currentState == State.CheckNod || currentState == State.CheckShake)
+		    && (Time.time - checkStartTime) > 0.5f) {
+			currentState = State.WaitForMovement;
+			previousAngle = GetCurrentRotation();
+		}
+		    
+	}
+	
+	static float SmallestDifferenceBetweenAngles(float from, float to) {
+		// http://stackoverflow.com/questions/1878907/the-smallest-difference-between-2-angles
+		// REQUIRES: 0 <= from < 360, 0 <= to < 360
+		// ENSURES: -180 <= result <= 180
+		
+		float diff = to - from;
+		return Mathf.Repeat(diff + 180f, 360f) - 180f;
+	}
+	
+	static Vector3 SmallestDifferenceBetweenAngles(Vector3 from, Vector3 to) {
+		return new Vector3(
+			SmallestDifferenceBetweenAngles(from.x, to.x),
+			SmallestDifferenceBetweenAngles(from.y, to.y),
+			SmallestDifferenceBetweenAngles(from.z, to.z)
+		);
+	}
+	
+	private Vector3 GetCurrentRotation() {
+		// returns current rotation in Euler format, degrees
+		// (x,y,z) like in the inspector
+		return Camera.main.transform.rotation.eulerAngles;
 	}
 	
 	void DetectMovement() {
 		// REQUIRES: !checkHeadNod && !checkHeadShake
 		
-		Vector3 currentAngle = Camera.main.transform.forward;
+		Vector3 currentAngle = GetCurrentRotation(); // degrees
+		checkDirection = SmallestDifferenceBetweenAngles(previousAngle, currentAngle);
 		
 		//Check if the head moved to a different square
-		float dy = Mathf.Abs (currentAngle.y - initialAngle.y);
-		float dx = Mathf.Abs (currentAngle.x - initialAngle.x);
+		float dy = Mathf.Abs(checkDirection.y) / Time.deltaTime; // shake
+		float dx = Mathf.Abs(checkDirection.x) / Time.deltaTime; // nod
+		previousAngle = currentAngle;
 		
 		if(dy >= Y_BOUNDARY && !(dx >= X_BOUNDARY)) {
-			//Passed a block on the y and not on x side: head nod
-			checkHeadNod = true;
-			checkHeadShake = false;
+			currentState = State.CheckShake;
 			checkAngle = currentAngle;
+			checkStartTime = Time.time;
 			
-			//Determined a head nod
 		} else if(dx >= X_BOUNDARY && !(dy >= Y_BOUNDARY)) {
-			//Passed a block on the x and not on y side: head shake
-			checkHeadShake = true;
-			checkHeadNod = false;
+			currentState = State.CheckNod;
 			checkAngle = currentAngle;
-			
-			//Determined a head shake
-		} else {
-			initialAngle = currentAngle;
+			checkStartTime = Time.time;
 		}
 	}
 	
 	//takes in startangle and whether it's a nod or shake that's being checked
 	void checkMove(Vector3 startAngle, bool nod) {
-		Vector3 currAngle = Camera.main.transform.forward;
+		Vector3 currentAngle = GetCurrentRotation();
 		//finds vertical and horizontal distance difference
+
+		Vector3 diff = SmallestDifferenceBetweenAngles(checkAngle, currentAngle);
+		Vector3 absDiff = new Vector3(Mathf.Abs(diff.x),Mathf.Abs(diff.y),Mathf.Abs(diff.z));		
 		
-		// TODO: why take the absolute value now, if we do so later also?
-		// TODO: can we just use x and y? What if they're facing a different way?
-		float startY = Mathf.Abs (startAngle.y);
-		float currY = Mathf.Abs (currAngle.y);
-		
-		float startX = Mathf.Abs (startAngle.x);
-		float currX = Mathf.Abs (currAngle.x);
-		
-		float yDiff = Mathf.Abs (startY - currY);
-		float xDiff = Mathf.Abs (startX - currX);
-		
-		//random numbers for how far it can be.. fiddle around wth this for camera constraints
-		
-		if (!((yDiff < .5) && (xDiff < .3)))
-			return;
-		
-		if (nod) {
-			if (yDiff > .3 && xDiff < .2) {
+		if (!nod) {
+//			Debug.Log (Mathf.Sign(checkDirection.y) + " " + Mathf.Sign (diff.y) + (Mathf.Sign(checkDirection.y) != Mathf.Sign (diff.y)));
+			if (absDiff.y > 60 && Mathf.Sign(checkDirection.y) != Mathf.Sign (diff.y)) {
+				currentState = State.WaitForMovement;
+				OnShake();
+				previousAngle = GetCurrentRotation();
+			}
+				
+//				OnNod();
+		} else {
+			if (absDiff.x > 30 && Mathf.Sign(checkDirection.x) != Mathf.Sign (diff.x)) {
+				currentState = State.WaitForMovement;
+				previousAngle = GetCurrentRotation();
 				OnNod();
 			}
-		} else {
-			//shake
-			if (xDiff < .3 && xDiff > .2) {
-				OnShake();
-			}
+				
+//				OnShake();
 		}
+		
+		
+//		// TODO: why take the absolute value now, if we do so later also?
+//		// TODO: can we just use x and y? What if they're facing a different way?
+//		float startY = Mathf.Abs (startAngle.y);
+//		float currY = Mathf.Abs (currentAngle.y);
+//		
+//		float startX = Mathf.Abs (startAngle.x);
+//		float currX = Mathf.Abs (currentAngle.x);
+//		
+//		float yDiff = Mathf.Abs (startY - currY);
+//		float xDiff = Mathf.Abs (startX - currX);
+//		
+//		//random numbers for how far it can be.. fiddle around wth this for camera constraints
+//		
+//		if (!((yDiff < .5) && (xDiff < .3)))
+//			return;
+//		
+//		if (nod) {
+//			if (yDiff > .3 && xDiff < .2) {
+//				OnNod();
+//			}
+//		} else {
+//			//shake
+//			if (xDiff < .3 && xDiff > .2) {
+//				OnShake();
+//			}
+//		}
 	}
 }
