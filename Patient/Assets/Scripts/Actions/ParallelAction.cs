@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ParallelAction : ActionRunner  {
 
 	IList<ActionRunner> actions;
 	int numDone;
+
+	public ParallelAction(params ActionRunner[] list) : this(list.ToList()) {
+		
+	}
 
 	// Start all actions, without waiting for action.IsFinished()
 	public ParallelAction(IList<ActionRunner> actions) {
