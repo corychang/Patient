@@ -306,8 +306,8 @@ public class PatientGameStateManager : GameStateManager {
 
 	protected override IList<GameState> GetGameStatesList() {
 		return 
-			GetScene2List()
-			//.Concat(GetScene2List())
+			GetScene1List()
+			.Concat(GetScene2List())
 			.Concat(GetScene3List())
 			.Concat(GetScene4List())
 			.ToList ();
