@@ -93,7 +93,7 @@ public class PatientGameStateManager : GameStateManager {
 			new GameState(
 				"Visitor",
 				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "question1"}
+				{new MainActionFinishedTrigger(), "question1Prompt"}
 			},
 			visitor, hallu
 			),
@@ -245,7 +245,7 @@ public class PatientGameStateManager : GameStateManager {
 		
 		GameState scene3Story = new GameState (
 			"scene3Story",
-			new Dictionary<Trigger, string>(new MainActionFinishedTrigger(), "scene4dialoguePart1"),
+			new Dictionary<Trigger, string>(){{new MainActionFinishedTrigger(), "scene4dialoguePart1"}},
 			scene3StoryAction
 			);
 		
@@ -306,8 +306,8 @@ public class PatientGameStateManager : GameStateManager {
 
 	protected override IList<GameState> GetGameStatesList() {
 		return 
-		GetScene1List()
-			.Concat(GetScene2List())
+		GetScene2List()
+			//.Concat(GetScene2List())
 			.Concat(GetScene3List())
 			.Concat(GetScene4List())
 			.ToList ();
