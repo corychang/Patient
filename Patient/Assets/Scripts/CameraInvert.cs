@@ -12,11 +12,18 @@ public class CameraInvert : MonoBehaviour
 			if (inverted == value)
 				return; // do nothing if they didn't actually update the value
 			inverted = value;
-			camera.ResetWorldToCameraMatrix ();
-			camera.ResetProjectionMatrix ();
+
+			Camera[] cams = Camera.allCameras;
+			
+			foreach (Camera cam in cams){
+				
+				cam.ResetProjectionMatrix ();
+			cam.ResetWorldToCameraMatrix ();
+			cam.ResetProjectionMatrix ();
 			if(inverted) 
 			{
-				camera.projectionMatrix = camera.projectionMatrix * Matrix4x4.Scale(new Vector3 (1, -1, 1));
+				cam.projectionMatrix = cam.projectionMatrix * Matrix4x4.Scale(new Vector3 (1, -1, 1));
+			}
 			}
 		}
 	}

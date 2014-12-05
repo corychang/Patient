@@ -5,6 +5,8 @@ public class StareTrigger : Trigger {
 	string targetName;
 	bool stareTriggered;
 
+	public StareTrigger(string targetName) : this(GameObject.Find("patient"), targetName) {}
+
 	public StareTrigger(GameObject gameObject, string targetName) {
 		this.targetName = targetName;
 		ObjectStare objectStare = gameObject.GetComponent<ObjectStare> ();

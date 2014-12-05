@@ -9,7 +9,6 @@ public class SceneFadeInOut : MonoBehaviour {
 	public void FadeToClear() {
 
 		//guiTexture.color = Color.Lerp (guiTexture.color, Camera.main.backgroundColor, fadeSpeed * Time.deltaTime);
-
 		if (guiTexture.color.a <= 0.05f) {
 			guiTexture.color = Color.clear;
 			guiTexture.enabled = false;
@@ -19,7 +18,6 @@ public class SceneFadeInOut : MonoBehaviour {
 	}
 
 	public void FadeToBlack() {
-		Debug.Log("Fading...");
 		guiTexture.enabled = true;
 		guiTexture.pixelInset = new Rect (0f, 0f, Screen.width, Screen.height);
 		//guiTexture.color = Color.Lerp (guiTexture.color, Color.black, fadeSpeed * Time.deltaTime);

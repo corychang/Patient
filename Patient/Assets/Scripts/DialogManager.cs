@@ -62,8 +62,7 @@ public class DialogManager : MonoBehaviour{
 				Color.white,
 				3
 			);
-			
-//			GUI.Label (new Rect (left, top, right, bottom), dialogue);
+
 			isDialogueOn = true;
 		}
 	}
