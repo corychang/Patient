@@ -274,6 +274,9 @@ public class PatientGameStateManager : GameStateManager {
 		};
 	}
 
+	// TODO: add to scene 4
+	// new SetAnimVarAction("DoorHinge", "Open", true)
+
 	protected override IList<GameState> GetGameStatesList() {
 		return GetScene1List (); //.Concat (GetScene2List ()).ToList ();
 	}
