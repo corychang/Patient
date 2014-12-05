@@ -13,10 +13,10 @@ public class DialogManager : MonoBehaviour{
 	private bool isDialogueOn = false;
 	public bool IsDialogueOn{get{return isDialogueOn;}}
 
-	private int left = 10;
-	private int top = 140;
+	private int left = 40;
+	private int top = 480;
 	private int right = 480;
-	private int bottom = 200;
+	private int bottom = 550;
 	
 	public static DialogManager Instance;
 	
@@ -54,10 +54,13 @@ public class DialogManager : MonoBehaviour{
 	    }
 
 		if (show) {
+			GUIStyle style = new GUIStyle();
+			style.fontSize = 36;
+
 			ShadowAndOutline.DrawOutline(
 				new Rect (left, top, right, bottom),
 				dialogue,
-				new GUIStyle(),
+				style,
 				Color.black,
 				Color.white,
 				4
