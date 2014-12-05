@@ -5,7 +5,7 @@ using System.Collections.Generic;
 // THIS IS THE FINAL VERSION OF THE GameStateManager.
 public class PatientGameStateManager : GameStateManager {
 
-	protected override IList<GameState> GetScene1List() {
+	IList<GameState> GetScene1List() {
 		// Initialization
 		GameObject patient = GameObject.Find ("patient");
 		SoundManager.Instance.addSound (new Sound ("Assets/Sounds/phoneRinging.mp3", "phoneRinging"));
@@ -54,7 +54,7 @@ public class PatientGameStateManager : GameStateManager {
 		};
 	}
 
-	IList<GameState> GetGameStatesList() {
+	protected override IList<GameState> GetGameStatesList() {
 		return GetScene1List ();
 	}
 }
