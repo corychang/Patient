@@ -245,7 +245,7 @@ public class PatientGameStateManager : GameStateManager {
 		
 		GameState scene3Story = new GameState (
 			"scene3Story",
-			new Dictionary<Trigger, string>(),
+			new Dictionary<Trigger, string>(new MainActionFinishedTrigger(), "scene4dialoguePart1"),
 			scene3StoryAction
 			);
 		
@@ -306,7 +306,7 @@ public class PatientGameStateManager : GameStateManager {
 
 	protected override IList<GameState> GetGameStatesList() {
 		return 
-			GetScene1List()
+		GetScene1List()
 			.Concat(GetScene2List())
 			.Concat(GetScene3List())
 			.Concat(GetScene4List())
