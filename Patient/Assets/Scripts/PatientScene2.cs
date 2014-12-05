@@ -16,7 +16,7 @@ public class PatientScene2	 : GameStateManager {
 		AnimationManager animationManager = GameObject.Find ("animationManager").GetComponent<AnimationManager> ();
 		GameObject person = GameObject.Find ("person");
 		AnimationClip animation = person.GetComponent<Animation> ().GetClip ("Take 001");
-		soundManager.addSound (new Sound (person, "Assets\\surreal sounds 4.mp3", "surrealSound"));
+		soundManager.addSound (new Sound (person, "Assets/Sounds/surreal_sound4.mp3", "surrealSound"));
 
 
 		GameObject obj = GameObject.Find ("Main Camera");
