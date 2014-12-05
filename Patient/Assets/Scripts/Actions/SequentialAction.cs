@@ -34,7 +34,7 @@ public class SequentialAction : ActionRunner {
 	//Either start next action, or if no more actions left, call done
 	protected void currentDone(){
 		if(next != null) {
-			next.register (currentDone);
+			next.register (currentDone);	
 			next.Start ();
 			
 			current = next;
@@ -44,7 +44,7 @@ public class SequentialAction : ActionRunner {
 			} 
 			else next = null;
 		}
-		else{
+		else{	
 			done();
 		}
 	}
@@ -55,6 +55,6 @@ public class SequentialAction : ActionRunner {
 
 
 	public override bool IsFinished(){
-				return next == null;
+				return next == null && current.IsFinished();
 		}
 }
