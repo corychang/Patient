@@ -9,6 +9,8 @@ public class GameStateManager : MonoBehaviour {
 	private IDictionary<string, object> variables;
 	public static GameStateManager Instance ;
 	
+	public string CurrentGameStateName; // show in the inspector to help debug, read only
+	
 	public void SetVariable(string name, object value) {
 		variables[name] = value;
 	}
@@ -62,6 +64,7 @@ public class GameStateManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		CurrentGameStateName = currentGameState.Name;
 		var next = currentGameState.GetNextState();
 		if (next != currentGameState.Name) {
 			currentGameState = gameStatesByName[next];

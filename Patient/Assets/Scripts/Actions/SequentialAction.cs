@@ -1,12 +1,17 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class SequentialAction : ActionRunner {
 
 	IEnumerator<ActionRunner> actions;
 	ActionRunner next;
 	ActionRunner current;
+	
+	public SequentialAction(params ActionRunner[] list) : this(list.ToList()) {
+	
+	}
 		
 	// Run each action, waiting for each to be finished before the next one
 	public SequentialAction(IList<ActionRunner> actions) {

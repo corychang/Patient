@@ -3,22 +3,19 @@ using System.Collections;
 
 public class SetVariableAction : ActionRunner {
 
-	private GameStateManager manager;
 	private string name;
 	private object value;
 
-	public SetVariableAction(GameStateManager manager, string name, object value){
-		this.manager = manager;
+	public SetVariableAction(string name, object value){
 		this.name = name;
 		this.value = value;
 	}
 
 	public override void Start () {
-		manager.SetVariable(name, value);
+		GameStateManager.Instance.SetVariable(name, value);
+		done ();
 	}
 	
 	// Nothing to interrupt	
-	public override void Interrupt () {
-		
-	}
+	public override void Interrupt () {}
 }

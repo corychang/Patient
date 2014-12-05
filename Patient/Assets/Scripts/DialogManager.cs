@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class DialogManager : MonoBehaviour{
 
@@ -19,10 +20,13 @@ public class DialogManager : MonoBehaviour{
 	
 	public static DialogManager Instance;
 	
-	void Start() {
+	void Awake() {
 		Instance = this;
 		SoundManager.Instance.addSound (new Sound (GameObject.FindGameObjectWithTag ("MainCamera"),
 		                                           "Assets/Sounds/gibberish.mp3", "gibberish"));
+//		Debug.Log (string.Join(",", FindObjectsOfType<DialogManager>().Select(x => x.name).ToArray()));
+		if (FindObjectsOfType<DialogManager>().Length > 1)
+			Debug.LogError("More than 1 Dialog manager in scene");
 	}
 
 	public void updateText(string text, float dur, OnFinished onFinished = null) {
