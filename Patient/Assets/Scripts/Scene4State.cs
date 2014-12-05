@@ -40,14 +40,16 @@ public class Scene4State : GameStateManager {
 					// The door opens and the mirror is perfectly angled to reflect you.
 					new DialogAction("Doctor: Visiting hours are almost over. There are some forms you need to sign."),
 					new DialogAction("Sibling: Sure?"),
-					new DialogAction("Sibling: I’ll be going now, but think about this.")
-					// display credits
+					new DialogAction("Sibling: I’ll be going now, but think about this."),
+					// TODO: display credits
 					// if yes, loop game
 					// if no, main menu
-//					new RestartGameAction()
+					new IfVariableAction("scene4answer",
+						new LoadLevelAction(0),
+						new LoadLevelAction("Menu")
+					)
 				)
 			)
-		};
-	
+		};	
 	}
 }
