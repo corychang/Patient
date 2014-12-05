@@ -31,9 +31,9 @@ public class PatientGameStateManager : GameStateManager {
 
 		GameState scene1Monologue = new GameState (
 			"scene1Monologue",
-			new Dictionary<Trigger, string>() {
+			new Dictionary<Trigger, string>() /*{
 			{new MainActionFinishedTrigger(), "hallucinate"}
-			},
+			},*/,
 			new SequentialAction(
 			new DialogAction("Mother: Honey, I just wanted to call to see if you’re all right."),
 			new DialogAction("Mother: The doctor says you’ll make a full recovery from your accident, but he won’t tell me what happened..."),
@@ -275,6 +275,6 @@ public class PatientGameStateManager : GameStateManager {
 	}
 
 	protected override IList<GameState> GetGameStatesList() {
-		return GetScene1List ().Concat (GetScene2List ()).ToList ();
+		return GetScene1List (); //.Concat (GetScene2List ()).ToList ();
 	}
 }
