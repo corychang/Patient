@@ -11,29 +11,27 @@ public class PatientGameStateManager : GameStateManager {
 		GameObject patient = GameObject.Find ("patient");
 		SoundManager.Instance.addSound (new Sound ("Assets/Sounds/phoneRinging.mp3", "phoneRinging"));
 
-		/////////////////// Scene 1   ///////////////////////
+		SoundAction phoneRing = new SoundAction ("phoneRinging", true);
 		GameState scene1Start = new GameState (
 			"scene1Start",
 			new Dictionary<Trigger, string>() {
 			{new ShakeTrigger(), "scene1Phone"}
 			},
-			new FadeAction(true)
+			new ParallelAction(new FadeAction(true), phoneRing)
 		);
-
-		SoundAction phoneRing = new SoundAction ("phoneRinging", true);
 		GameState scene1Phone = new GameState (
 			"scene1Phone",
 			new Dictionary<Trigger, string>() {
 			{new StareTrigger("phone"), "scene1Monologue"}
 			},
-			new ParallelAction(new FadeAction(false), phoneRing)
+			new FadeAction(false)
 		);
 
 		GameState scene1Monologue = new GameState (
 			"scene1Monologue",
-			new Dictionary<Trigger, string>() /*{
-			{new MainActionFinishedTrigger(), "hallucinate"}
-			},*/,
+			new Dictionary<Trigger, string>() {
+			{new MainActionFinishedTrigger(), "hallucination"}
+			},
 			new SequentialAction(
 			new DialogAction("Mother: Honey, I just wanted to call to see if you’re all right."),
 			new DialogAction("Mother: The doctor says you’ll make a full recovery from your accident, but he won’t tell me what happened..."),
@@ -62,10 +60,8 @@ public class PatientGameStateManager : GameStateManager {
 		DialogManager dialog = Camera.mainCamera.GetComponent<DialogManager>();
 		
 		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
-		AnimationManager animationManager = GameObject.Find ("animationManager").GetComponent<AnimationManager> ();
 		GameObject person = GameObject.Find ("person");
-		AnimationClip animation = person.GetComponent<Animation> ().GetClip ("Take 001");
-		soundManager.addSound (new Sound (person, "Assets/Sounds/surreal_sound4.mp3", "surrealSound"));
+		soundManager.addSound (new Sound ("Assets/Sounds/surreal_sound4.mp3", "surrealSound"));
 		
 		
 		GameObject obj = GameObject.Find ("Main Camera");
@@ -275,6 +271,7 @@ public class PatientGameStateManager : GameStateManager {
 	}
 
 	protected override IList<GameState> GetGameStatesList() {
-		return GetScene1List (); //.Concat (GetScene2List ()).ToList ();
+		//return GetScene2List ();
+		return GetScene1List ().Concat (GetScene2List ()).ToList ();
 	}
 }
