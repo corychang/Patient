@@ -49,10 +49,5 @@ public class Scene4State : GameStateManager {
 			)
 		};
 	
-		// But, when it comes to the good of humanity, you agree that it’s worth the risk right?
-		// yes or no
-		// Visiting hours are almost over. There are some forms you need to sign.
-		// Sure
-	
 	}
 }

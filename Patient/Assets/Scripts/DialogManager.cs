@@ -23,8 +23,13 @@ public class DialogManager : MonoBehaviour{
 	void Awake() {
 		Instance = this;
 //		Debug.Log (string.Join(",", FindObjectsOfType<DialogManager>().Select(x => x.name).ToArray()));
-		if (FindObjectsOfType<DialogManager>().Length > 1)
-			Debug.LogError("More than 1 Dialog manager in scene");
+
+		if (FindObjectsOfType(this.GetType()).Length > 1)
+			Debug.LogError("More than 1 " + this.GetType().Name + "in scene");
+	}
+	
+	void Start() {
+		SoundManager.Instance.addSound(new Sound("Assets/Sounds/gibberish.mp3", "gibberish"));
 	}
 
 	public void updateText(string text, float dur, OnFinished onFinished = null) {

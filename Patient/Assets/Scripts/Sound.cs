@@ -12,6 +12,8 @@ public class Sound
 	private bool isActivated = false;
 	private AudioSource source;
 	
+	public Sound(string filePath, string name) : this(Camera.main.gameObject, filePath, name) {}
+	
 	public Sound(GameObject gameObject, string filePath, string name)
 	{
 		this.gameObject = gameObject;
@@ -20,7 +22,7 @@ public class Sound
 
 		source = gameObject.AddComponent<AudioSource>();
 		AudioClip clip = Resources.LoadAssetAtPath<AudioClip> (filePath);
-		if (clip == null) Debug.Log ("can't find audio file" + filePath);
+		if (clip == null) Debug.LogError("can't find audio file " + filePath);
 		source.clip = clip;
 	}
 
