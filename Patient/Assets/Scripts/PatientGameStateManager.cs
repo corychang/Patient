@@ -17,7 +17,7 @@ public class PatientGameStateManager : GameStateManager {
 			new Dictionary<Trigger, string>() {
 			{new ShakeTrigger(), "scene1Phone"}
 			},
-			new ParallelAction(new FadeAction(true), phoneRing)
+			new ParallelAction(new FadeAction(true), phoneRing, new ChildSelectorAction("Sibling", "sleep"))
 		);
 		GameState scene1Phone = new GameState (
 			"scene1Phone",
@@ -67,9 +67,9 @@ public class PatientGameStateManager : GameStateManager {
 		if (obj == null) {
 			Debug.Log ("couldn't find Main Camera");
 		}	
-		ParallelAction hallu = new ParallelAction (new CameraInvertAction(), new SoundAction("surrealSound", true));
-	
+		ParallelAction hallu = new ParallelAction (new CameraInvertAction(), new SoundAction("surrealSound", true));	
 		SequentialAction visitor = new SequentialAction (
+			new ChildSelectorAction("Sibling", "normalpose"),
 			new DialogAction("Sibling: I’m glad to see you’re awake."),
 			new DialogAction("Sibling: We’re in St. Paul’s Hospital which works with Lydersen Labs to develop pharmaceuticals."),
 			new DialogAction("Sibling: Actually, I work here, but in the research side with people from Lydersen.")
@@ -186,7 +186,8 @@ public class PatientGameStateManager : GameStateManager {
 			new List<ActionRunner>() {
 			new CameraInvertAction(),
 			new LightPulseAction(), //TODO: Corey also sound affect
-			new SoundAction("surreal1", true)
+			new SoundAction("surreal1", true),
+			new ChildSelectorAction("Sibling", "lookflower")
 		}
 		);
 		GameState scene3Hallucinate = new GameState (
