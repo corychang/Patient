@@ -8,6 +8,7 @@ public class GameState {
 	
 	private IDictionary<Trigger,string> transitionTable;
 	private ActionRunner mainAction;
+	private ActionRunner actionToInterrupt;
 
 	public GameState(string name, IDictionary<Trigger,string> transitionTable, ActionRunner mainAction, 
 	                 ActionRunner actionToInterrupt = null) {
@@ -16,13 +17,14 @@ public class GameState {
 		this.Name = name;
 		this.transitionTable = transitionTable;
 		this.mainAction = mainAction;
-		if (actionToInterrupt != null) {
-			actionToInterrupt.Interrupt();
-		}
+		this.actionToInterrupt = actionToInterrupt;
 	}
 	
 	public void Start() {
 		mainAction.Start();
+		if (actionToInterrupt != null) {
+			actionToInterrupt.Interrupt();
+		}
 	}
 	
 	// called every update
