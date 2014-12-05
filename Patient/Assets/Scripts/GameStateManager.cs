@@ -44,6 +44,8 @@ public class GameStateManager : MonoBehaviour {
 		Instance = this;
 		variables = new Dictionary<string, object>();
 		IList<GameState> gameStates = GetGameStatesList();
+		Utilities.Assert (gameStates.Count > 0, "Must have at least 1 game state");
+		
 		currentGameState = gameStates[0];
 		
 		gameStatesByName = new Dictionary<string, GameState>();
