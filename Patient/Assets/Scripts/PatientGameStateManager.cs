@@ -152,7 +152,7 @@ public class PatientGameStateManager : GameStateManager {
 
 			new GameState(
 				"question3Yes",
-				new Dictionary<Trigger, string>(){{new MainActionFinishedTrigger(), "WorldExpo"}},
+				new Dictionary<Trigger, string>(){{new MainActionFinishedTrigger(), "scene3Hallucinate"}},
 				new DialogAction("Sibling: But then, how do — no, nevermind.")
 			),
 			
@@ -305,9 +305,10 @@ public class PatientGameStateManager : GameStateManager {
 	}
 
 	protected override IList<GameState> GetGameStatesList() {
-		return 
-		GetScene2List()
-			//.Concat(GetScene2List())
+		//return GetScene4List ();
+		return
+		GetScene1List()
+			.Concat(GetScene2List())
 			.Concat(GetScene3List())
 			.Concat(GetScene4List())
 			.ToList ();
