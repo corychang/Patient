@@ -17,7 +17,7 @@ public class PatientGameStateManager : GameStateManager {
 			new Dictionary<Trigger, string>() {
 			{new ShakeTrigger(), "scene1Phone"}
 			},
-			new ParallelAction(new FadeAction(true), phoneRing)
+			new ParallelAction(new FadeAction(true), phoneRing, new ChildSelectorAction("Sibling", "sleep"))
 		);
 		GameState scene1Phone = new GameState (
 			"scene1Phone",
