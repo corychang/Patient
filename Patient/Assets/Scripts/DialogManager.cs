@@ -22,8 +22,6 @@ public class DialogManager : MonoBehaviour{
 	
 	void Awake() {
 		Instance = this;
-		SoundManager.Instance.addSound (new Sound (GameObject.FindGameObjectWithTag ("MainCamera"),
-		                                           "Assets/Sounds/gibberish.mp3", "gibberish"));
 //		Debug.Log (string.Join(",", FindObjectsOfType<DialogManager>().Select(x => x.name).ToArray()));
 		if (FindObjectsOfType<DialogManager>().Length > 1)
 			Debug.LogError("More than 1 Dialog manager in scene");

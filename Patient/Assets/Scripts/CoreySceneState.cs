@@ -19,6 +19,8 @@ public class CoreySceneState : GameStateManager {
 			Debug.LogError ("couldn't find Main Camera");
 		}
 		soundManager.addSound (new Sound (obj, "Assets/Sounds/surreal_sound1.mp3", "surreal1"));
+		soundManager.addSound (new Sound (GameObject.FindGameObjectWithTag ("MainCamera"),
+		                                           "Assets/Sounds/gibberish.mp3", "gibberish"));
 
 
 		ActionRunner scene3HallucinateAction = new ParallelAction(
