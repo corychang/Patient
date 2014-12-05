@@ -45,7 +45,6 @@ public class Sound
 			isActivated = false;
 			if(onFinished != null){
 				onFinished();
-				Debug.Log ("Audio finished");
 			}
 		}
 	}
@@ -54,9 +53,9 @@ public class Sound
 	public void interrupt(){
 		if (onFinished != null) {
 			onFinished ();
-			isActivated = false;
 		}
-		source.mute = true;
+		isActivated = false;
+		source.Stop ();
 	}
 
 }		

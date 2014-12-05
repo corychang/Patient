@@ -18,9 +18,6 @@ public class CoreySceneState : GameStateManager {
 		if (obj == null) {
 			Debug.LogError ("couldn't find Main Camera");
 		}
-		soundManager.addSound (new Sound (obj, "Assets/Sounds/backgroundMusic.mp3", "background"));
-		soundManager.addSound (new Sound (obj, "Assets/Sounds/crowd-talking-1.mp3", "chatter"));
-		soundManager.addSound (new Sound (obj, "Assets/Sounds/sadMusic.mp3", "sadMusic"));
 		soundManager.addSound (new Sound (obj, "Assets/Sounds/surreal_sound1.mp3", "surreal1"));
 
 
@@ -41,10 +38,10 @@ public class CoreySceneState : GameStateManager {
 
 		ActionRunner scene3RoseAction = new SequentialAction (
 			new List<ActionRunner>(){
-				new DialogAction("Whoa, what are you doing?", 3, dialog),
-				new DialogAction("You okay?", 2, dialog),				
-				new DialogAction("I hope the flower Mom brought actually works", 4, dialog),
-				new DialogAction("I mean, it does mean \"get-well-soon\"", 3, dialog),
+				new DialogAction("Whoa, what are you doing?"),
+				new DialogAction("You okay?"),				
+				new DialogAction("I hope the flower Mom brought actually works"),
+				new DialogAction("I mean, it does mean \"get-well-soon\""),
 			}
 		);
 		GameState scene3Rose = new GameState (
@@ -52,28 +49,28 @@ public class CoreySceneState : GameStateManager {
 			new Dictionary<Trigger, string> () {
 			{new StareTrigger(patient, "rose"), "scene3Story"}
 			},	
-			scene3RoseAction
+			scene3RoseAction,
+			scene3HallucinateAction
 		);
 
 
 		ActionRunner scene3StoryAction = new SequentialAction (new List<ActionRunner> (){
-			new DialogAction("Sibling: They weren't originally blue; they were red.", 4, dialog),
+			new DialogAction("Sibling: They weren't originally blue; they were red."),
 			new DialogAction("Sibling: Some people wanted to clone roses to see if they could breed them " +
-			                 "true and get a reliable variety they could stock and sell.", 10, dialog),
+			                 "true and get a reliable variety they could stock and sell."),
 			new DialogAction("Sibling: For some reason, " +
 			                 "they got brown flowers instead of the red ones they wanted so they were about to stop " +
-			                 "the funding, but they finally tried cloning the brown roses.", 8, dialog),
+			                 "the funding, but they finally tried cloning the brown roses."),
 			new DialogAction("Sibling: The next clones were blue " +
-			                 "and bred true enough for commercial purposes.", 5, dialog),
+			                 "and bred true enough for commercial purposes."),
 			new DialogAction("Sibling: The thing is, everyone wasn't too bothered " +
 			"about roses being cloned, but when they moved the project to animals from roses, " +
-			"that was when it went to hell.", 10, dialog),
-			new DialogAction("Sibling: See, after the whole thing with the roses, there were ideas" +
-			                 "to fix the underpopulation problem with cloning, but there was a crowd of people against" +
-			                 "it.", 10, dialog),
-			new DialogAction("Sibling: It was risky and unreliable, actually, the whole roses debacle was really a lucky bit.", 
-			                 10, dialog),
-			new DialogAction("Sibling: Mom is against it, as a matter of fact — it's why you two got into fights.", 12, dialog)
+			"that was when it went to hell."),
+			new DialogAction("Sibling: See, after the whole thing with the roses, there were ideas " +
+			                 "to fix the underpopulation problem with cloning, but there was a crowd of people against " +
+			                 "it."),
+			new DialogAction("Sibling: It was risky and unreliable, actually, the whole roses debacle was really a lucky bit."),
+			new DialogAction("Sibling: Mom is against it, as a matter of fact —it's why you two got into fights.")
 		});
 
 		GameState scene3Story = new GameState (

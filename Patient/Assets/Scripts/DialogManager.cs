@@ -21,6 +21,8 @@ public class DialogManager : MonoBehaviour{
 	
 	void Start() {
 		Instance = this;
+		SoundManager.Instance.addSound (new Sound (GameObject.FindGameObjectWithTag ("MainCamera"),
+		                                           "Assets/Sounds/gibberish.mp3", "gibberish"));
 	}
 
 	public void updateText(string text, float dur, OnFinished onFinished = null) {
@@ -28,21 +30,17 @@ public class DialogManager : MonoBehaviour{
 		startingTime = Time.time;
 		dialogue = text;
 		this.onFinished = onFinished;
+		SoundManager.Instance.startSound ("gibberish", true, null);
 	}
-
-	//test case
-	/*void Start(){
-		updateText("sdfddsds", 3F);
-	}
-*/
 	void OnGUI() {
 		//GUIStyle style = new GUIStyle ();
 		//style.richText = true;
 		float currentTime = Time.time;
 		if (currentTime-startingTime <= duration) {
 			show = true;
-		} else {
-			if (onFinished != null && show) {
+		} else if (show) {
+			SoundManager.Instance.interruptSound("gibberish");
+			if (onFinished != null) {
 				onFinished();
 			}
 	     	show = false;
@@ -50,7 +48,7 @@ public class DialogManager : MonoBehaviour{
 
 		if (show) {
 			GUI.Label (new Rect (left, top, right, bottom), dialogue);
-			isDialogueOn =true;
+			isDialogueOn = true;
 		}
 	}
 	

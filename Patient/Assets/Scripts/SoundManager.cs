@@ -6,7 +6,11 @@ using System.Collections.Generic;
 public class SoundManager : MonoBehaviour
 {
 	List<Sound> sounds = new List<Sound>();
-	public void Start(){
+
+	public static SoundManager Instance;
+	
+	void Start() {
+		Instance = this;
 
 	}
 	
@@ -37,7 +41,7 @@ public class SoundManager : MonoBehaviour
 	public void addSound(Sound sound){
 		sounds.Add (sound);
 	}
-	
+
 	public void Update(){
 	    foreach (Sound sound in sounds){
 			sound.ifFinishedFinish();
