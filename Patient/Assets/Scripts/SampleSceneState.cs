@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ public class SampleSceneState : GameStateManager {
 	protected override IList<GameState> GetGameStatesList() {
 
 		//Gets the Dialog object from the camera for the dialog action
-		GUITest dialog = Camera.mainCamera.GetComponent<GUITest>();
+		DialogManager dialog = Camera.mainCamera.GetComponent<DialogManager>();
 
 		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
 		GameObject obj = GameObject.FindGameObjectWithTag ("MainCamera");
