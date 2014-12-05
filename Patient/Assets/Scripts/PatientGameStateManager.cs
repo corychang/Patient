@@ -11,29 +11,27 @@ public class PatientGameStateManager : GameStateManager {
 		GameObject patient = GameObject.Find ("patient");
 		SoundManager.Instance.addSound (new Sound ("Assets/Sounds/phoneRinging.mp3", "phoneRinging"));
 
-		/////////////////// Scene 1   ///////////////////////
+		SoundAction phoneRing = new SoundAction ("phoneRinging", true);
 		GameState scene1Start = new GameState (
 			"scene1Start",
 			new Dictionary<Trigger, string>() {
 			{new ShakeTrigger(), "scene1Phone"}
 			},
-			new FadeAction(true)
+			new ParallelAction(new FadeAction(true), phoneRing)
 		);
-
-		SoundAction phoneRing = new SoundAction ("phoneRinging", true);
 		GameState scene1Phone = new GameState (
 			"scene1Phone",
 			new Dictionary<Trigger, string>() {
 			{new StareTrigger("phone"), "scene1Monologue"}
 			},
-			new ParallelAction(new FadeAction(false), phoneRing)
+			new FadeAction(false)
 		);
 
 		GameState scene1Monologue = new GameState (
 			"scene1Monologue",
-			new Dictionary<Trigger, string>() /*{
-			{new MainActionFinishedTrigger(), "hallucinate"}
-			},*/,
+			new Dictionary<Trigger, string>() {
+			{new MainActionFinishedTrigger(), "hallucination"}
+			},
 			new SequentialAction(
 			new DialogAction("Mother: Honey, I just wanted to call to see if you’re all right."),
 			new DialogAction("Mother: The doctor says you’ll make a full recovery from your accident, but he won’t tell me what happened..."),
@@ -62,10 +60,8 @@ public class PatientGameStateManager : GameStateManager {
 		DialogManager dialog = Camera.mainCamera.GetComponent<DialogManager>();
 		
 		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
-		AnimationManager animationManager = GameObject.Find ("animationManager").GetComponent<AnimationManager> ();
 		GameObject person = GameObject.Find ("person");
-		AnimationClip animation = person.GetComponent<Animation> ().GetClip ("Take 001");
-		soundManager.addSound (new Sound (person, "Assets/Sounds/surreal_sound4.mp3", "surrealSound"));
+		soundManager.addSound (new Sound ("Assets/Sounds/surreal_sound4.mp3", "surrealSound"));
 		
 		
 		GameObject obj = GameObject.Find ("Main Camera");
@@ -216,7 +212,7 @@ public class PatientGameStateManager : GameStateManager {
 				"no3",
 				new Dictionary<Trigger, string>() {
 				{shakeTrigger, "no4"},
-				{nodTrigger, "Scene3"}
+				{nodTrigger, "scene3Hallucinate"}
 			},
 			new NoAction()
 			),
@@ -260,24 +256,107 @@ public class PatientGameStateManager : GameStateManager {
 			new GameState(
 				"WorldExpo",
 				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "Scene3"},
+				{new MainActionFinishedTrigger(), "scene3Hallucinate"},
 			},
 			WorldExpo
-			),
-			
-			new GameState(
-				"Scene3",
-				new Dictionary<Trigger, string>() {
-			},
-			new NoAction()
 			)
 		};
 	}
-
-	// TODO: add to scene 4
-	// new SetAnimVarAction("DoorHinge", "Open", true)
+	
+	IList<GameState> GetScene3List() {
+		
+		//Gets the Dialog object from the camera for the dialog action
+		DialogManager dialog = Camera.main.GetComponent<DialogManager>();
+		GameObject patient = GameObject.Find ("patient");
+		
+		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
+		GameObject obj = GameObject.FindGameObjectWithTag ("MainCamera");
+		if (obj == null) {
+			Debug.LogError ("couldn't find Main Camera");
+		}
+		soundManager.addSound (new Sound (obj, "Assets/Sounds/surreal_sound1.mp3", "surreal1"));
+		soundManager.addSound (new Sound (GameObject.FindGameObjectWithTag ("MainCamera"),
+		                                  "Assets/Sounds/gibberish.mp3", "gibberish"));
+		
+		
+		ActionRunner scene3HallucinateAction = new ParallelAction(
+			new List<ActionRunner>() {
+			new CameraInvertAction(),
+			new LightPulseAction(), //TODO: Corey also sound affect
+			new SoundAction("surreal1", true)
+		}
+		);
+		GameState scene3Hallucinate = new GameState (
+			"scene3Hallucinate",
+			new Dictionary<Trigger, string> {
+			{new ShakeTrigger(patient), "scene3RoseDialog"}
+		},
+		scene3HallucinateAction
+		);
+		
+		ActionRunner scene3RoseDialogAction = new SequentialAction (
+			new List<ActionRunner>(){
+			new DialogAction("Whoa, what are you doing?"),
+			new DialogAction("You okay?"),				
+			new DialogAction("I hope the flower Mom brought actually works"),
+			new DialogAction("I mean, it does mean \"get-well-soon\""),
+		}
+		);
+		GameState scene3RoseDialog = new GameState (
+			"scene3RoseDialog",
+			new Dictionary<Trigger, string> () {
+			{new MainActionFinishedTrigger(), "scene3Rose"}
+		},	
+		scene3RoseDialogAction,
+		scene3HallucinateAction
+		);
+		
+		GameState scene3Rose = new GameState(
+			"scene3Rose",
+			new Dictionary<Trigger, string> () {
+			{new StareTrigger(patient, "rose"), "scene3Story"}
+		},
+		new NoAction()
+		);
+		
+		
+		ActionRunner scene3StoryAction = new SequentialAction (new List<ActionRunner> (){
+			new DialogAction("They weren't originally blue; they were red."),
+			new DialogAction("Some people wanted to clone roses to see if they could breed them " +
+			                 "true and get a reliable variety they could stock and sell."),
+			new DialogAction("For some reason, " +
+			                 "they got brown flowers instead of the red ones they wanted so they were about to stop " +
+			                 "the funding, but they finally tried cloning the brown roses."),
+			new DialogAction("The next clones were blue " +
+			                 "and bred true enough for commercial purposes."),
+			new DialogAction("The thing is, everyone wasn't too bothered " +
+			                 "about roses being cloned, but when they moved the project to animals from roses, " +
+			                 "that was when it went to hell."),
+			new DialogAction("See, after the whole thing with the roses, there were ideas " +
+			                 "to fix the underpopulation problem with cloning, but there was a crowd of people against " +
+			                 "it."),
+			new DialogAction("It was risky and unreliable, actually, the whole roses debacle was really a lucky bit."),
+			new DialogAction("Mom is against it, as a matter of fact —it's why you two got into fights.")
+		});
+		
+		GameState scene3Story = new GameState (
+			"scene3Story",
+			new Dictionary<Trigger, string>(),
+			scene3StoryAction
+			);
+		
+		return new List<GameState> {
+			scene3Hallucinate,
+			scene3RoseDialog,
+			scene3Rose,
+			scene3Story
+		};
+	}
 
 	protected override IList<GameState> GetGameStatesList() {
-		return GetScene1List (); //.Concat (GetScene2List ()).ToList ();
+		return GetScene1List ().Concat (GetScene2List ()).Concat(GetScene3List()).ToList ();
 	}
+	
+	// TODO: add to scene 4
+	// new SetAnimVarAction("DoorHinge", "Open", true)
 }
