@@ -13,8 +13,8 @@ public class NodDetect : MonoBehaviour {
 	private State currentState;
 	
 	// angles per second threshold to trigger nod
-	const double Y_BOUNDARY = 500;
-	const double X_BOUNDARY = 500;
+	const double Y_BOUNDARY = 200;
+	const double X_BOUNDARY = 50;
 	
 	Vector3 previousAngle;
 	Vector3 checkAngle;
@@ -119,14 +119,14 @@ public class NodDetect : MonoBehaviour {
 		Vector3 absDiff = new Vector3(Mathf.Abs(diff.x),Mathf.Abs(diff.y),Mathf.Abs(diff.z));		
 		
 		if (!nod) {
-			if (absDiff.y > 60 && Mathf.Sign(checkDirection.y) != Mathf.Sign (diff.y)) {
+			if (absDiff.y > 30 && Mathf.Sign(checkDirection.y) != Mathf.Sign (diff.y)) {
 				currentState = State.WaitForMovement;
 				Debug.Log ("shake");
 				OnShake();
 				previousAngle = GetCurrentRotation();
 			}
 		} else {
-			if (absDiff.x > 30 && Mathf.Sign(checkDirection.x) != Mathf.Sign (diff.x)) {
+			if (absDiff.x > 10 && Mathf.Sign(checkDirection.x) != Mathf.Sign (diff.x)) {
 				currentState = State.WaitForMovement;
 				previousAngle = GetCurrentRotation();
 				Debug.Log ("nod");
