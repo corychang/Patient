@@ -39,7 +39,6 @@ public class PatientGameStateManager : GameStateManager {
 			new DialogAction("Mother: Do you know how I feel when you go missing?"),
 			new DialogAction("Mother: Dad is- I- I know we don’t agree, but you can’t keep running away!"),
 			new DialogAction("Every time!"),
-			new DialogAction("Mother: If we always disagree (about cloning), why do you bring it up!"),
 			new DialogAction("Mother: ... "),
 			new DialogAction("Mother: No, that’s not why I called… I just need to know if you’re okay."),
 			new DialogAction("Mother: The doctor says you’ll be awake the next time Dad and I’ll visit, so get plenty of rest."),
@@ -69,41 +68,16 @@ public class PatientGameStateManager : GameStateManager {
 			Debug.Log ("couldn't find Main Camera");
 		}	
 		ParallelAction hallu = new ParallelAction (new CameraInvertAction(), new SoundAction("surrealSound", true));
-		
-		List<ActionRunner> list = new List<ActionRunner> ();
-		list.Add (new DialogAction ("How long have you been awake? Uh, actually, first, do you know where you are?"));
-		SequentialAction visitor = new SequentialAction (list); 
-		
-		DialogAction no1 = new DialogAction ("Well, we’re in St. Paul’s Hospital. It works with Lydersen Labs to develop pharmaceuticals. " +
-		                                     "Actually, I work here, but in the research side with people from Lydersen.");
-		
-		DialogAction yes1 = new DialogAction ("Oh, okay, that’s good.");
-		
-		DialogAction no2 = new DialogAction ("That’s fine, I’m just glad you’re okay. You got " +
-		                                     "hit by a car. I don’t know exactly what happened, but you’ve been in a coma for a while.");
-		
-		DialogAction yes2 = new DialogAction ("Yeah, that was a pretty bad crash. We were worried you wouldn’t make it.");
-		
-		DialogAction preDoctorQs = new DialogAction ("Okay, you should remember who you are, right? " +
-		                                             "The doctor gave me these questions to ask you, just making sure you’re all here.");
-		
-		DialogAction no3 = new DialogAction ("Wait, really? But that — In that case, do you remember me? ");
-		
-		DialogAction yes3 = new DialogAction ("See, I knew the doctor was worrying too much. In that case, you remember me, right?");
-		
-		DialogAction no4 = new DialogAction ("I- um. I, well.");
-		
-		DialogAction yes4 = new DialogAction ("But then, how do — no, nevermind.");
+	
+		SequentialAction visitor = new SequentialAction (
+			new DialogAction("Sibling: I’m glad to see you’re awake."),
+			new DialogAction("Sibling: We’re in St. Paul’s Hospital which works with Lydersen Labs to develop pharmaceuticals."),
+			new DialogAction("Sibling: Actually, I work here, but in the research side with people from Lydersen.")
+		); 
 		
 		DialogAction WorldExpo = new DialogAction ("I’m your brother. Uh, I don’t know what to say… I work here and, \n" +
 		                                           "um, I do research in epigenetics. \n" +
 		                                           "This never happened before… I didn’t think that — the doctor did say you might…");
-		
-		DialogAction question2 = new DialogAction ("Do you remember anything about how you got here?");
-		
-		
-		NodTrigger nodTrigger = new NodTrigger (obj);
-		ShakeTrigger shakeTrigger = new ShakeTrigger (obj);
 		
 		if (dialog == null) {
 			Debug.Log("null pointer with dialog");			
@@ -113,145 +87,74 @@ public class PatientGameStateManager : GameStateManager {
 			new GameState(
 				"hallucination",
 				new Dictionary<Trigger, string>() {
-				{shakeTrigger, "Visitor"}
+				{new NodTrigger(), "Visitor"}
 			},hallu
 			),
 			new GameState(
 				"Visitor",
 				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "QATime1"}
+				{new MainActionFinishedTrigger(), "question1"}
 			},
 			visitor, hallu
 			),
 			
-			new GameState(	
-			              "QATime1",
-			              new Dictionary<Trigger, string>() {
-				{shakeTrigger, "no1"},
-				{nodTrigger, "yes1"}
-			},
-			new NoAction()
-			),
-			
-			
 			new GameState(
-				"no1",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "question2"}
-			},
-			no1
+				"question1Prompt",
+				new Dictionary<Trigger, string>(){{new MainActionFinishedTrigger(), "question1"}},
+				new SequentialAction(new DialogAction("Sibling: We were really worried we were going to lose you, and there’s barely enough people around as it is…"),
+					new DialogAction("Sibling: Do you remember your name?"))
 			),
+
 			new GameState(
-				"yes1",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "question2"}
-			},
-			yes1
+				"question1",
+				new Dictionary<Trigger, string>(){
+				{new NodTrigger(), "question2prompt"},
+				{new ShakeTrigger(), "question3prompt"}
+				},
+				new NoAction()
 			),
-			
+
+			new GameState(
+				"question2prompt",
+				new Dictionary<Trigger, string>(){{new MainActionFinishedTrigger(), "question2"}},
+				new DialogAction("Sibling: See, I knew the doctor was worrying too much. In that case, you remember me, right?")
+			),
+
 			new GameState(
 				"question2",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "QATime2"}
-			},
-			question2
-			),
-			
-			new GameState(
-				"QATime2",
-				new Dictionary<Trigger, string>() {
-				{shakeTrigger, "no2"},
-				{nodTrigger, "yes2"}
+				new Dictionary<Trigger, string>(){
+				{new NodTrigger(), "scene3Hallucinate"},
+				{new ShakeTrigger(), "question2No"}
 			},
 			new NoAction()
 			),
-			
+
 			new GameState(
-				"no2",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "question3"}
-			},
-			no2
+				"question2No",
+				new Dictionary<Trigger, string>(){{new MainActionFinishedTrigger(), "WorldExpo"}},
+			new DialogAction("I- um. I, well")
 			),
-			
+
 			new GameState(
-				"yes2",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "question3"}
-			},
-			yes2
+				"question3prompt",
+				new Dictionary<Trigger, string>(){{new MainActionFinishedTrigger(), "question3"}},
+				new DialogAction("Sibling: Wait, really? But that — In that case, do you remember me?")
 			),
-			
-			
+
 			new GameState(
 				"question3",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "preQATime3"}
-			},
-			preDoctorQs
-			),
-			
-			new GameState(
-				"preQATime3",
-				new Dictionary<Trigger, string>() {
-				{shakeTrigger, "question4_no"},
-				{nodTrigger, "question4_yes"}
+				new Dictionary<Trigger, string>(){
+				{new NodTrigger(), "question3Yes"},
+				{new ShakeTrigger(), "question2No"}
 			},
 			new NoAction()
 			),
-			
+
 			new GameState(
-				"question4_no",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "no3"}
-			},
-			no3
+				"question3Yes",
+				new Dictionary<Trigger, string>(){{new MainActionFinishedTrigger(), "WorldExpo"}},
+				new DialogAction("Sibling: But then, how do — no, nevermind.")
 			),
-			
-			new GameState(
-				"no3",
-				new Dictionary<Trigger, string>() {
-				{shakeTrigger, "no4"},
-				{nodTrigger, "scene3Hallucinate"}
-			},
-			new NoAction()
-			),
-			
-			
-			new GameState(
-				"question4_yes",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "yes3"}
-			},
-			yes3
-			),
-			
-			new GameState(
-				"yes3",
-				new Dictionary<Trigger, string>() {
-				{shakeTrigger, "no4"},
-				{nodTrigger, "yes4"}
-			},
-			new NoAction()
-			),
-			
-			new GameState(
-				"no4",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "WorldExpo"},
-			},
-			no4
-			),
-			
-			new GameState(
-				"yes4",
-				new Dictionary<Trigger, string>() {
-				{new MainActionFinishedTrigger(), "WorldExpo"},
-			},
-			yes4
-			),
-			
-			
 			
 			new GameState(
 				"WorldExpo",
@@ -322,7 +225,7 @@ public class PatientGameStateManager : GameStateManager {
 		
 		ActionRunner scene3StoryAction = new SequentialAction (new List<ActionRunner> (){
 			new DialogAction("They weren't originally blue; they were red."),
-			new DialogAction("Some people wanted to clone roses to see if they could breed them " +
+			new DialogAction("Some people wanted to clone roses to see " +
 			                 "true and get a reliable variety they could stock and sell."),
 			new DialogAction("For some reason, " +
 			                 "they got brown flowers instead of the red ones they wanted so they were about to stop " +
@@ -402,8 +305,8 @@ public class PatientGameStateManager : GameStateManager {
 
 	protected override IList<GameState> GetGameStatesList() {
 		return 
-			GetScene1List()
-			.Concat(GetScene2List())
+			GetScene2List()
+			//.Concat(GetScene2List())
 			.Concat(GetScene3List())
 			.Concat(GetScene4List())
 			.ToList ();
