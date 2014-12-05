@@ -258,7 +258,7 @@ public class PatientGameStateManager : GameStateManager {
 	}
 	
 	private IList<GameState> GetScene4List() {
-		
+		SoundManager.Instance.addSound (new Sound ("Assets/Sounds/sadMusic.mp3", "sadMusic"));
 		return new List<GameState>() {
 			new GameState(
 				"scene4dialoguePart1",
@@ -287,18 +287,20 @@ public class PatientGameStateManager : GameStateManager {
 				new Dictionary<Trigger, string>() {},
 				new SequentialAction(
 					// TODO: knock sound
+					new SoundAction("sadMusic", true),
 					new DialogAction("Sibling: Yes?"),
 					//new SetAnimVarAction("DoorHinge", "Open", true),
 					new DialogAction("Doctor: Visiting hours are almost over. There are some forms you need to sign."),
 					new DialogAction("Sibling: Sure?"),
-					new DialogAction("Sibling: I’ll be going now, but think about this."),
+					new DialogAction("Sibling: I’ll be going now, but think about this.")
 					// TODO: display credits
 					// if yes, loop game
 					// if no, main menu
-					new IfVariableAction("scene4answer",
+					/*new IfVariableAction("scene4answer",
 						new LoadLevelAction(0),
 						new LoadLevelAction("Menu")
-					)
+					)*/
+					//new LoadLevelAction("CreditsScene")
 				)
 			)
 		};	
