@@ -10,7 +10,7 @@ public class CoreySceneState : GameStateManager {
 	protected override IList<GameState> GetGameStatesList() {
 
 		//Gets the Dialog object from the camera for the dialog action
-		DialogManager dialog = Camera.mainCamera.GetComponent<DialogManager>();
+		DialogManager dialog = Camera.main.GetComponent<DialogManager>();
 		GameObject patient = GameObject.Find ("patient");
 
 		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
@@ -49,12 +49,11 @@ public class CoreySceneState : GameStateManager {
 		);
 		GameState scene3Rose = new GameState (
 			"scene3Rose",
-			new Dictionary<Trigger, string>() {
+			new Dictionary<Trigger, string> () {
 			{new StareTrigger(patient, "rose"), "scene3Story"}
 			},	
-			scene3RoseAction,
-			scene3HallucinateAction
-			);
+			scene3RoseAction
+		);
 
 
 		ActionRunner scene3StoryAction = new SequentialAction (new List<ActionRunner> (){

@@ -9,6 +9,12 @@ public class GameState {
 	private IDictionary<Trigger,string> transitionTable;
 	private ActionRunner mainAction;
 	private ActionRunner actionToInterrupt;
+	
+	public ActionRunner MainAction {
+		get {
+			return mainAction;
+		}
+	}
 
 	public GameState(string name, IDictionary<Trigger,string> transitionTable, ActionRunner mainAction, 
 	                 ActionRunner actionToInterrupt = null) {

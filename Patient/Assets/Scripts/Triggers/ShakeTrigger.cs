@@ -5,6 +5,10 @@ public class ShakeTrigger : Trigger
 {
 	private bool JustGotShake = false;
 	
+	public ShakeTrigger() : this(GameObject.Find ("patient")) {
+	
+	}
+	
 	public ShakeTrigger(GameObject gameObject) {
 		NodDetect shakeDetect = gameObject.GetComponent<NodDetect> ();
 		if (shakeDetect == null)
