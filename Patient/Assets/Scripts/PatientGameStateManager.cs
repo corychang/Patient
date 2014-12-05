@@ -405,7 +405,6 @@ public class PatientGameStateManager : GameStateManager {
 			GetScene1List()
 			.Concat(GetScene2List())
 			.Concat(GetScene3List())
-			.Concat(GetScene3List())
 			.Concat(GetScene4List())
 			.ToList ();
 	}
