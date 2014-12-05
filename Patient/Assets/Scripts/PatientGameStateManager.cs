@@ -262,7 +262,7 @@ public class PatientGameStateManager : GameStateManager {
 			)
 		};
 	}
-
+	
 	IList<GameState> GetScene3List() {
 		
 		//Gets the Dialog object from the camera for the dialog action
@@ -356,4 +356,7 @@ public class PatientGameStateManager : GameStateManager {
 	protected override IList<GameState> GetGameStatesList() {
 		return GetScene1List ().Concat (GetScene2List ()).Concat(GetScene3List()).ToList ();
 	}
+	
+	// TODO: add to scene 4
+	// new SetAnimVarAction("DoorHinge", "Open", true)
 }
