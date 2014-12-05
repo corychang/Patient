@@ -10,7 +10,7 @@ public class SampleSceneState : GameStateManager {
 	protected override IList<GameState> GetGameStatesList() {
 
 		//Gets the Dialog object from the camera for the dialog action
-		DialogManager dialog = Camera.mainCamera.GetComponent<DialogManager>();
+		DialogManager dialog = Camera.main.GetComponent<DialogManager>();
 
 		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
 		GameObject obj = GameObject.FindGameObjectWithTag ("MainCamera");

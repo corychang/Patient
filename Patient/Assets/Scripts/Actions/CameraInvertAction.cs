@@ -8,7 +8,7 @@ public class CameraInvertAction : ActionRunner {
 	
 	public CameraInvertAction() {
 		finished = false;
-		invert = Camera.mainCamera.GetComponent<CameraInvert>();
+		invert = Camera.main.GetComponent<CameraInvert>();
 	}
 	
 	// Start the action.

@@ -10,7 +10,7 @@ public class CoreySceneState : GameStateManager {
 	protected override IList<GameState> GetGameStatesList() {
 
 		//Gets the Dialog object from the camera for the dialog action
-		DialogManager dialog = Camera.mainCamera.GetComponent<DialogManager>();
+		DialogManager dialog = Camera.main.GetComponent<DialogManager>();
 		GameObject patient = GameObject.Find ("patient");
 
 		SoundManager soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager> ();
