@@ -13,10 +13,10 @@ public class DialogManager : MonoBehaviour{
 	private bool isDialogueOn = false;
 	public bool IsDialogueOn{get{return isDialogueOn;}}
 
-	private int left = 40;
-	private int top = 480;
-	private int right = 480;
-	private int bottom = 550;
+	private float leftPercentage = .05f;
+	private float topPercentage = 0.8f;
+	private float rightPercentage = 0.85f;
+	private float botttomPercentage = 0.95f;
 	
 	public static DialogManager Instance;
 	
@@ -56,9 +56,14 @@ public class DialogManager : MonoBehaviour{
 		if (show) {
 			GUIStyle style = new GUIStyle();
 			style.fontSize = 36;
+			style.wordWrap = true;
 
 			ShadowAndOutline.DrawOutline(
-				new Rect (left, top, right, bottom),
+				new Rect (leftPercentage * Screen.width,
+			          	  topPercentage * Screen.height,
+			          	  rightPercentage * Screen.width,
+			          	  botttomPercentage * Screen.height
+			          ),
 				dialogue,
 				style,
 				Color.black,
