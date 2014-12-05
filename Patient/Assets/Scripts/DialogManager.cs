@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GUITest : MonoBehaviour{
-	
+public class DialogManager : MonoBehaviour{
+
+	private OnFinished onFinished;
 	private bool show = false;
 	private string dialogue;
 	public float startingTime;
@@ -16,10 +17,11 @@ public class GUITest : MonoBehaviour{
 	private int right = 480;
 	private int bottom = 200;
 
-	public void updateText(string text, float dur) {
+	public void updateText(string text, float dur, OnFinished onFinished = null) {
 		duration = dur;
 		startingTime = Time.time;
 		dialogue = text;
+		this.onFinished = onFinished;
 	}
 
 	//test case
@@ -34,6 +36,9 @@ public class GUITest : MonoBehaviour{
 		if (currentTime-startingTime <= duration) {
 			show = true;
 		} else {
+			if (onFinished != null && show) {
+				onFinished();
+			}
 	     	show = false;
 	    }
 

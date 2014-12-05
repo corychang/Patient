@@ -5,9 +5,9 @@ public class DialogAction : ActionRunner {
 	
 	private string message;
 	private float duration;
-	private GUITest dialog;
+	private DialogManager dialog;
 	
-	public DialogAction(string message, float duration, GUITest dialog) {
+	public DialogAction(string message, float duration, DialogManager dialog) {
 		this.message = message;
 		this.duration = duration;
 		this.dialog = dialog;
@@ -15,7 +15,7 @@ public class DialogAction : ActionRunner {
 	
 	// Start the action.
 	public override void Start() {
-		dialog.updateText(message, duration);
+		dialog.updateText(message, duration, done);
 	}
 	
 	// Message prints immediately, so there's nothing to interrupt
