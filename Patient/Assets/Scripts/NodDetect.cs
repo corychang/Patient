@@ -121,7 +121,6 @@ public class NodDetect : MonoBehaviour {
 		if (!nod) {
 			if (absDiff.y > 60 && Mathf.Sign(checkDirection.y) != Mathf.Sign (diff.y)) {
 				currentState = State.WaitForMovement;
-				Debug.Log ("shake");
 				OnShake();
 				previousAngle = GetCurrentRotation();
 			}
@@ -129,7 +128,6 @@ public class NodDetect : MonoBehaviour {
 			if (absDiff.x > 30 && Mathf.Sign(checkDirection.x) != Mathf.Sign (diff.x)) {
 				currentState = State.WaitForMovement;
 				previousAngle = GetCurrentRotation();
-				Debug.Log ("nod");
 				OnNod();
 			}
 		}

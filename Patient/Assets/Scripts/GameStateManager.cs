@@ -58,12 +58,17 @@ public class GameStateManager : MonoBehaviour {
 				Utilities.Assert(gameStatesByName.ContainsKey(successor), "State " + gameState.Name + "'s successor " + successor + " must exist");
 			}
 		}
-		
-		currentGameState.Start();
 	}
+	
+	bool started;
 	
 	// Update is called once per frame
 	void Update () {
+		if (!started) {
+			started = true;
+			currentGameState.Start();
+		}
+	
 		CurrentGameStateName = currentGameState.Name;
 		var next = currentGameState.GetNextState();
 		if (next != currentGameState.Name) {
