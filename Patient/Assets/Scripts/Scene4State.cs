@@ -10,18 +10,10 @@ public class Scene4State : GameStateManager {
 			new GameState(
 				"scene4dialoguePart1",
 				new Dictionary<Trigger, string>() {
-					{new MainActionFinishedTrigger(), "scene4question"}
-				},
-				new DialogAction("Sibling: But, when it comes to the good of humanity, you agree that it’s worth the risk right?")	
-			),
-			new GameState(
-				"scene4question",
-				new Dictionary<Trigger, string>() {
 					{new NodTrigger(), "scene4yes"},
 					{new ShakeTrigger(), "scene4no"}
 				},
-				new DebugLogAction("scene4question")
-//				new NoAction()
+				new DialogAction("Sibling: But, when it comes to the good of humanity, you agree that it’s worth the risk right?")	
 			),
 			new GameState(
 				"scene4yes",
