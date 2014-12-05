@@ -15,8 +15,10 @@ public class NodTrigger : Trigger
 		NodDetect nodDetect = gameObject.GetComponent<NodDetect> ();
 		if (nodDetect == null)
 			Debug.LogError (gameObject.name + " must have NodDetect");
+	}
 
-		nodDetect.Nod += OnNod;
+	public override void Init() {
+		NodDetect.Instance.Nod += OnNod;
 	}
 
 	public override bool IsTriggered() {

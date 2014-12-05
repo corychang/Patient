@@ -13,8 +13,10 @@ public class ShakeTrigger : Trigger
 		NodDetect shakeDetect = gameObject.GetComponent<NodDetect> ();
 		if (shakeDetect == null)
 			Debug.LogError (gameObject.name + " must have NodDetect");
-		
-		shakeDetect.Shake += OnNod;
+	}
+
+	public override void Init() {
+		NodDetect.Instance.Shake += OnShake;
 	}
 	
 	public override bool IsTriggered() {
@@ -25,8 +27,10 @@ public class ShakeTrigger : Trigger
 		return false;
 	}
 	
-	public void OnNod() {
+	public void OnShake() {
+		Debug.Log ("OnShake called");
 		JustGotShake = true;
+		NodDetect.Instance.Shake -= OnShake;
 	}
 	
 }

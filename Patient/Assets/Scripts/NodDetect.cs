@@ -2,7 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 public class NodDetect : MonoBehaviour {
-	
+
+	public static NodDetect Instance;
+
+	void Awake() {
+		Instance = this;
+	}
+
+
 	public delegate void NodHandler();
 	public delegate void ShakeHandler();
 	

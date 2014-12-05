@@ -13,11 +13,13 @@ public class CameraInvertAction : ActionRunner {
 	
 	// Start the action.
 	public override void Start() {
+		Debug.Log ("inverting camera");
 		invert.Inverted = true;
 	}
 	
 	// Message prints immediately, so there's nothing to interrupt
 	public override void Interrupt() {
+		Debug.Log ("invert done");
 		invert.Restore ();
 		finished = true;
 	}

@@ -31,6 +31,9 @@ public class GameState {
 		if (actionToInterrupt != null) {
 			actionToInterrupt.Interrupt();
 		}
+		foreach (Trigger trigger in transitionTable.Keys) {
+			trigger.Init();
+		}
 	}
 	
 	// called every update
