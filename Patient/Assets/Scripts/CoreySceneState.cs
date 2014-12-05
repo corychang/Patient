@@ -60,7 +60,7 @@ public class CoreySceneState : GameStateManager {
 			new Dictionary<Trigger, string> () {
 			{new StareTrigger(patient, "rose"), "scene3Story"}
 			},
-			new EmptyAction()
+			new NoAction()
 		);
 
 
