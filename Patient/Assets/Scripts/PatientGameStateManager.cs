@@ -70,9 +70,10 @@ public class PatientGameStateManager : GameStateManager {
 		}	
 		ParallelAction hallu = new ParallelAction (new CameraInvertAction(), new SoundAction("surrealSound", true));
 		
-		List<ActionRunner> list = new List<ActionRunner> ();
-		list.Add (new DialogAction ("How long have you been awake? Uh, actually, first, do you know where you are?"));
-		SequentialAction visitor = new SequentialAction (list); 
+		SequentialAction visitor = new SequentialAction (
+			new ChildSelectorAction("Sibling", "normalpose"),
+			new DialogAction ("How long have you been awake? Uh, actually, first, do you know where you are?")
+		); 
 		
 		DialogAction no1 = new DialogAction ("Well, we’re in St. Paul’s Hospital. It works with Lydersen Labs to develop pharmaceuticals. " +
 		                                     "Actually, I work here, but in the research side with people from Lydersen.");
@@ -283,7 +284,8 @@ public class PatientGameStateManager : GameStateManager {
 			new List<ActionRunner>() {
 			new CameraInvertAction(),
 			new LightPulseAction(), //TODO: Corey also sound affect
-			new SoundAction("surreal1", true)
+			new SoundAction("surreal1", true),
+			new ChildSelectorAction("Sibling", "lookflower")
 		}
 		);
 		GameState scene3Hallucinate = new GameState (
