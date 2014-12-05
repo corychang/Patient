@@ -50,7 +50,7 @@ public class GameStateManager : MonoBehaviour {
 		
 		gameStatesByName = new Dictionary<string, GameState>();
 		foreach (GameState gameState in gameStates) {
-			Utilities.Assert(!gameStatesByName.ContainsKey(gameState.Name), "Names must be unique");
+			Utilities.Assert(!gameStatesByName.ContainsKey(gameState.Name), "Names must be unique -- multiple entries for " + gameState.Name);
 			gameStatesByName[gameState.Name] = gameState;
 		}
 		

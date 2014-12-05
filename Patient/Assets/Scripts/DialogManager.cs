@@ -60,7 +60,7 @@ public class DialogManager : MonoBehaviour{
 				new GUIStyle(),
 				Color.black,
 				Color.white,
-				3
+				4
 			);
 
 			isDialogueOn = true;
