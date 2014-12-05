@@ -21,12 +21,12 @@ public class SequentialAction : ActionRunner {
 
 		
 	public override void Start() {
+		current = actions.Current;
+		current.register (currentDone);
 		bool hasNext = actions.MoveNext ();
 		if(hasNext){
 			next = actions.Current;
 		}
-		current = actions.Current;
-		current.register (currentDone);
 		current.Start ();
 	}
 	
