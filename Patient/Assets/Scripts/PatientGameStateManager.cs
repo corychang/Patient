@@ -352,11 +352,61 @@ public class PatientGameStateManager : GameStateManager {
 			scene3Story
 		};
 	}
+	
+	private IList<GameState> GetScene4List() {
+		
+		return new List<GameState>() {
+			new GameState(
+				"scene4dialoguePart1",
+				new Dictionary<Trigger, string>() {
+				{new NodTrigger(), "scene4yes"},
+				{new ShakeTrigger(), "scene4no"}
+			},
+			new DialogAction("Sibling: But, when it comes to the good of humanity, you agree that it’s worth the risk right?")	
+			),
+			new GameState(
+				"scene4yes",
+				new Dictionary<Trigger, string>() {
+				{new MainActionFinishedTrigger(), "scene4dialoguePart2"}
+			},
+			new SetVariableAction("scene4answer", true)
+			),
+			new GameState(
+				"scene4no",
+				new Dictionary<Trigger, string>() {
+				{new MainActionFinishedTrigger(), "scene4dialoguePart2"}
+			},
+			new SetVariableAction("scene4answer", false)
+			),
+			new GameState(
+				"scene4dialoguePart2",
+				new Dictionary<Trigger, string>() {},
+				new SequentialAction(
+					// TODO: knock sound
+					new DialogAction("Sibling: Yes?"),
+					new SetAnimVarAction("DoorHinge", "Open", true),
+					new DialogAction("Doctor: Visiting hours are almost over. There are some forms you need to sign."),
+					new DialogAction("Sibling: Sure?"),
+					new DialogAction("Sibling: I’ll be going now, but think about this."),
+					// TODO: display credits
+					// if yes, loop game
+					// if no, main menu
+					new IfVariableAction("scene4answer",
+						new LoadLevelAction(0),
+						new LoadLevelAction("Menu")
+					)
+				)
+			)
+		};	
+	}
 
 	protected override IList<GameState> GetGameStatesList() {
-		return GetScene1List ().Concat (GetScene2List ()).Concat(GetScene3List()).ToList ();
+		return 
+			GetScene1List()
+			.Concat(GetScene2List())
+			.Concat(GetScene3List())
+			.Concat(GetScene3List())
+			.Concat(GetScene4List())
+			.ToList ();
 	}
-	
-	// TODO: add to scene 4
-	// new SetAnimVarAction("DoorHinge", "Open", true)
 }
